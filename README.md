@@ -17,6 +17,9 @@ then run approve.js , it will print the txHash and transfer result;
 This airdrop.js is an executive document of the airdrop contract. you should initialize the parameters in the file and run airdrop.js.
 the airdrop result will be printed on the console.
 
+---- config.js
+This config.js is the config file, contain 'airdropModule','approveModule','deployModule';
+
 The airdrop sequence is as follows:
 1. Deploy ERC20Token contract and airdrop contract.
 2. Approve enough ERC20 tokens to the airdrop contract.

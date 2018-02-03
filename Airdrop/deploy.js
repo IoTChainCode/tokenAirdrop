@@ -11,14 +11,16 @@ var Tx = require('ethereumjs-tx');
 var ethjsaccount = require('ethjs-account');
 
 
-//------------------------------ 参数初始化 ----------------------------
-//用户私钥
-const userPrivateKey = '';
-//合约路径
+//------------------------------ init property ----------------------------
+Config = require('./config/config.js');
+
+//user privateKey
+const userPrivateKey = Config.deployModule.userPrivateKey;
+//contract address
 const contractPath = './contract/airdrop.sol';
-//-------------------------------- end --------------------------------
 
 
+//-------------------------------- contract --------------------------------
 // compile the code
 const input = fs.readFileSync(contractPath);
 const output = solc.compile(input.toString());
@@ -27,23 +29,23 @@ const bytecode = output.contracts[':TokenAirDrop'].bytecode;
 // deploy function
 function deployContract(userPrivateKey,fromAddress,success, error) {
 
-    //定义transaction
+//  transaction config
     var t = {
         value: '0x00',
         data: ('0x'+bytecode)
     };
-    //获取当前gas价格（暂未用）
+//  Get the current gas price (not used temporarily)
     web3.eth.getGasPrice().then(function(p) {
         //t.gasPrice = web3.utils.toHex(p);
         //1 Gwei
         t.gasPrice = web3.utils.toHex(2000000000);
-        //获取nonce
+        //get nonce
         web3.eth.getTransactionCount(fromAddress,
             function(err, r) {
                 t.nonce = web3.utils.toHex(r);
                 t.from = fromAddress;
 
-                //获取gasLimit(暂未用)
+                //get gasLimit（not used temporarily）
                 web3.eth.estimateGas(t,
                     function(err, gas) {
                         //web3.utils.toHex(gas);
@@ -55,19 +57,19 @@ function deployContract(userPrivateKey,fromAddress,success, error) {
                         var tx = new Tx(t);
                         var privateKey = new Buffer(userPrivateKey, 'hex');
 
-                        //签名
+                        //sign
                         tx.sign(privateKey);
                         var serializedTx = '0x' + tx.serialize().toString('hex');
                         //console.log("serializedTx----"+serializedTx);
 
-                        console.log("发送已签名交易");
+                        console.log("send signed transaction");
 
-                        //发送原始transaction
+                        //sendSignedTransaction
                         web3.eth.sendSignedTransaction(serializedTx)
                           .on('transactionHash',function(hash){
-                            console.log('交易hash块:'+ hash+'\n');
+                            console.log('hashId:'+ hash+'\n');
                         }).on('receipt',function(receipt){
-                            //console.log('receipt入口:'+ JSON.stringify(receipt));
+                            //console.log('receipt:'+ JSON.stringify(receipt));
                             var s = receipt.status;
                             console.log("resultStatus:"+s);
                             if(s == 1){
@@ -81,9 +83,9 @@ function deployContract(userPrivateKey,fromAddress,success, error) {
                             /*web3.eth.getBlockNumber(function (number) {
                              console.log("number--"+number+"\n");
                              });*/
-                            //  console.log('验证入口'+ JSON.stringify(confirmationNumber)+'--------------'+ JSON.stringify(receipt));
+                            //  console.log('entrance'+ JSON.stringify(confirmationNumber)+'--------------'+ JSON.stringify(receipt));
                         }).on('error',function(error){
-                            console.log('发送签名交易失败，error'+error);
+                            console.log('Failure to send a signature transaction：'+error);
                         });
                     });
             });
@@ -96,14 +98,9 @@ var privateKeyToAddress = function(privateKey,result) {
     result(address);
 };
 
-//获取私钥对应账号
 privateKeyToAddress(userPrivateKey,function (address) {
 
-    console.log('from地址：'+address);
-
-    //查看余额
-    //web3.eth.getBalance(address).then(console.log);
-    //web3.eth.getBlockNumber().then(console.log);
+    console.log('from：'+address);
 
     deployContract(userPrivateKey,address,function (success) {
 

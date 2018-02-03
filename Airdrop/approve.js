@@ -18,61 +18,60 @@ const input = fs.readFileSync('./contract/erc20Token.sol');
 const output = solc.compile(input.toString());
 const abi = JSON.parse(output.contracts[':TokenERC20'].interface);
 
-//------------------------------ 参数初始化 ----------------------------
-//授权数量
-var amount = web3.utils.toWei('1000', 'ether');
-//空投合约地址
-var airdropApproveAddress = '';
-//用户私钥
-var userPrivateKey = '';
-//erc20代币合约地址
-var tokenContractAddress = '';
-//-------------------------------- end --------------------------------
+//------------------------------ init property ----------------------------
+Config = require('./config/config.js');
 
+//amount of airdrop
+var amount = Config.approveModule.amount;
+//airdrop contract address
+var airdropApproveAddress = Config.approveModule.airdropApproveAddress;
+//user privateKey
+var userPrivateKey = Config.approveModule.userPrivateKey;
+//erc20 token contract address
+var tokenContractAddress = Config.approveModule.tokenContractAddress;
 
-// init contract with erc20Token address
+//-------------------------------- contract --------------------------------
 var token = new web3.eth.Contract(abi, tokenContractAddress);
 
 function approveTransfer(approveAddress,amount,fromAddress,userPrivateKey,success, error) {
 
-//定义transaction
+//  transaction config
     var t = {
         to: tokenContractAddress,
         value: '0x00',
         data: token.methods.approve(approveAddress,
             amount).encodeABI()
     };
-//获取当前gas价格（暂未用）
+//Get the current gas price (not used temporarily)
     web3.eth.getGasPrice().then(function(p) {
         //t.gasPrice = web3.utils.toHex(p);
         t.gasPrice = web3.utils.toHex(2000000000);
-        //获取nonce
+        //get nonce
         web3.eth.getTransactionCount(fromAddress,
             function(err, r) {
                 t.nonce = web3.utils.toHex(r);
                 t.from = fromAddress;
-                //获取gasLimit（暂未用）
+                //get gasLimit（not used temporarily）
                 web3.eth.estimateGas(t,
                     function(err, gas) {
                         gas = '4700000';
                         t.gasLimit = web3.utils.toHex(gas);
 
-                        //初始化transaction
                         var tx = new Tx(t);
                         var privateKey = new Buffer(userPrivateKey, 'hex');
 
-                        //签名
+                        //sign
                         tx.sign(privateKey);
                         var serializedTx = '0x' + tx.serialize().toString('hex');
                         // console.log("serializedTx----"+serializedTx);
 
-                        console.log("发送已签名交易");
+                        console.log("send signed transaction");
 
-                        //发送原始transaction
+                        //sendSignedTransaction
                         web3.eth.sendSignedTransaction(serializedTx).on('transactionHash',function(hash){
-                            console.log('交易hash块:'+ hash+'\n');
+                            console.log('hashId:'+ hash+'\n');
                         }).on('receipt',function(receipt){
-                            //console.log('receipt入口:'+ JSON.stringify(receipt));
+                            //console.log('receipt:'+ JSON.stringify(receipt));
                             var s = receipt.status;
                             console.log("resultStatus:"+s);
                             if(s == 1){
@@ -86,9 +85,9 @@ function approveTransfer(approveAddress,amount,fromAddress,userPrivateKey,succes
                             /*web3.eth.getBlockNumber(function (number) {
                              console.log("number--"+number+"\n");
                              });*/
-                            //  console.log('验证入口'+ JSON.stringify(confirmationNumber)+'--------------'+ JSON.stringify(receipt));
+                            //  console.log('entrance'+ JSON.stringify(confirmationNumber)+'--------------'+ JSON.stringify(receipt));
                         }).on('error',function(error){
-                            console.log('发送签名交易失败，error'+error);
+                            console.log('Failure to send a signature transaction：'+error);
                         });
                     });
             });
@@ -100,10 +99,10 @@ var privateKeyToAddress = function(privateKey,result) {
     result(address);
 };
 
-//获取私钥对应的地址，并发起授权
+//Get the private key corresponding account and initiate the transfer
 privateKeyToAddress(userPrivateKey,function (address) {
 
-    console.log('from地址：'+address);
+    console.log('from：'+address);
 
     approveTransfer(airdropApproveAddress,amount,address,userPrivateKey,function (success) {
 

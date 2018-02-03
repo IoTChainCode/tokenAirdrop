@@ -21,21 +21,24 @@ const output = solc.compile(input.toString());
 const abi = JSON.parse(output.contracts[':TokenAirDrop'].interface);
 
 
-//------------------------------ 参数初始化 ----------------------------
-//空投数量
-const ercAirDropAmount = web3.utils.toWei('1', 'ether');
-//空投合约地址
-const airContractAddress = '';
-//用户私钥
-const userPrivateKey = '';
-//erc20代币合约地址
-const tokenContractAddress = '';
-//代币转出地址
-const transferFromAddress = '';
-//-------------------------------- end --------------------------------
+//------------------------------ init property ----------------------------
+
+Config = require('./config/config.js');
+//amount of airdrop
+const ercAirDropAmount = Config.airdropModule.ercAirDropAmount;
+//airdrop contract address
+const airContractAddress = Config.airdropModule.airContractAddress;
+//user privateKey
+const userPrivateKey = Config.airdropModule.userPrivateKey;
+//erc20 token contract address
+const tokenContractAddress = Config.airdropModule.tokenContractAddress;
+//transfer from address
+const transferFromAddress = Config.airdropModule.transferFromAddress;
+
+
+//-------------------------------- contract --------------------------------
 
 var token = new web3.eth.Contract(abi, airContractAddress);
-
 
 token.events.TokenDrop(function (result) {
     //console.log("\n\n----------------------didWatchTokenDropEvent----------------------\n\n");
@@ -46,12 +49,9 @@ token.events.TokenDrop(function (result) {
 
 
 
-//从地址from转移value个token到地址to。success和error是回调函数
 var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,airdropDestinationAddresses, airdropAmounts, fromAddress,userPrivateKey,success, error) {
 
-    console.log("空投发送地址：\n"+airDropOriginalAddress+"\n空投目标地址:\n"+airdropDestinationAddresses +"\n空投合约地址：\n",erc20TokenContractAddress+"\n\n");
-
-    //定义transaction
+    //transaction config
     var t = {
         to: airContractAddress,
         value: '0x00',
@@ -60,37 +60,36 @@ var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,aird
             airdropDestinationAddresses,
             airdropAmounts).encodeABI()
     };
-    //获取当前gas价格
+    //current gas price
     web3.eth.getGasPrice().then(function(p) {
         //t.gasPrice = web3.utils.toHex(p);
         t.gasPrice = web3.utils.toHex(2000000000);
-        //获取nonce
+        //get nonce value
         web3.eth.getTransactionCount(fromAddress,
             function(err, r) {
                 t.nonce = web3.utils.toHex(r);
                 t.from = fromAddress;
-                //获取gasLimit
+                //get gasLimit value
                 web3.eth.estimateGas(t,
                     function(err, gas) {
                         gasLimit = '4700000';
                         t.gasLimit = web3.utils.toHex(gasLimit);
 
-                        //初始化transaction
                         var tx = new Tx(t);
                         var privateKey = new Buffer(userPrivateKey, 'hex');
 
-                        //签名
+                        //sign
                         tx.sign(privateKey);
                         var serializedTx = '0x' + tx.serialize().toString('hex');
                         // console.log("serializedTx----"+serializedTx);
 
-                        console.log("发送已签名交易");
+                        console.log("send signed transaction");
 
-                        //发送原始transaction
+                        //sendSignedTransaction
                         web3.eth.sendSignedTransaction(serializedTx).on('transactionHash',function(hash){
-                            console.log('交易hash块:'+ hash+'\n');
+                            console.log('hashId:'+ hash+'\n');
                         }).on('receipt',function(receipt){
-                            //console.log('receipt入口:'+ JSON.stringify(receipt));
+                            //console.log('receipt:'+ JSON.stringify(receipt));
                             var s = receipt.status;
                             console.log("resultStatus:"+s);
                             if(s == 1){
@@ -104,9 +103,9 @@ var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,aird
                             /*web3.eth.getBlockNumber(function (number) {
                                 console.log("number--"+number+"\n");
                             });*/
-                          //  console.log('验证入口'+ JSON.stringify(confirmationNumber)+'--------------'+ JSON.stringify(receipt));
+                          //  console.log('entrance'+ JSON.stringify(confirmationNumber)+'--------------'+ JSON.stringify(receipt));
                         }).on('error',function(error){
-                            console.log('发送签名交易失败，'+error);
+                            console.log('Failure to send a signature transaction：'+error);
                         });
                     });
             });
@@ -120,7 +119,7 @@ var privateKeyToAddress = function(privateKey,result) {
     result(address);
 };
 
-//----------------  逐行读取 update.txt 内容  ------------
+//---------------- read update.txt content  ------------
 
 var addresses = [];
 var amounts = [];
@@ -145,8 +144,8 @@ lineReader.on('close', function () {
     }
 
 
-//获取私钥对应账号并发起转帐
-    privateKeyToAddress(userPrivateKey,function (address) {
+//Get the private key corresponding account and initiate the transfer
+privateKeyToAddress(userPrivateKey,function (address) {
 
         console.log("\naddress:"+address);
 
