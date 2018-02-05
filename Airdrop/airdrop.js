@@ -2,12 +2,10 @@
  * Created by zhaoyiyu on 2018/1/17.
  */
 
+const Config = require('./config/config.js');
+
 Web3 = require('web3');
-//url = 'https://rinkeby.infura.io/0x585a40461ff12c6734e8549a7fb527120d4b8d0d';
-url = "https://mainnet.infura.io";
-web3 = new Web3(new Web3.providers.HttpProvider(url));
- //var net = require('net');
- //var web3 = new Web3(new Web3.providers.IpcProvider('/Users/apple/Library/Ethereum/rinkeby/geth.ipc', net));
+const web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
 
 //init
 const Tx = require('ethereumjs-tx');
@@ -20,12 +18,10 @@ const input = fs.readFileSync('./contract/airdrop.sol');
 const output = solc.compile(input.toString());
 const abi = JSON.parse(output.contracts[':TokenAirDrop'].interface);
 
-
 //------------------------------ init property ----------------------------
 
-Config = require('./config/config.js');
 //amount of airdrop
-const ercAirDropAmount = Config.airdropModule.ercAirDropAmount;
+const ercAirDropAmount = web3.utils.toWei(Config.airdropModule.ercAirDropAmount, 'ether');
 //airdrop contract address
 const airContractAddress = Config.airdropModule.airContractAddress;
 //user privateKey
@@ -60,20 +56,19 @@ var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,aird
             airdropDestinationAddresses,
             airdropAmounts).encodeABI()
     };
-    //current gas price
+    //get current gasPrice, you can use default gasPrice or custom gasPrice!
     web3.eth.getGasPrice().then(function(p) {
         //t.gasPrice = web3.utils.toHex(p);
-        t.gasPrice = web3.utils.toHex(2000000000);
+        t.gasPrice = web3.utils.toHex(Config.transaction.gasPrice);
         //get nonce value
         web3.eth.getTransactionCount(fromAddress,
             function(err, r) {
                 t.nonce = web3.utils.toHex(r);
                 t.from = fromAddress;
-                //get gasLimit value
+                //get gasLimit value , you can use estimateGas or custom gasLimit!
                 web3.eth.estimateGas(t,
                     function(err, gas) {
-                        gasLimit = '4700000';
-                        t.gasLimit = web3.utils.toHex(gasLimit);
+                        t.gasLimit = web3.utils.toHex(Config.transaction.gasLimit);
 
                         var tx = new Tx(t);
                         var privateKey = new Buffer(userPrivateKey, 'hex');

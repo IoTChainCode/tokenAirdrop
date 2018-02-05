@@ -2,10 +2,10 @@
  * Created by zhaoyiyu on 2018/1/29.
  */
 
+const Config = require('./config/config.js');
+
 Web3 = require('web3');
-//url = 'https://rinkeby.infura.io/0x585a40461ff12c6734e8549a7fb527120d4b8d0d';
-url = "https://mainnet.infura.io";
-const web3 = new Web3(new Web3.providers.HttpProvider(url));
+const web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
 
 //init
 const Tx = require('ethereumjs-tx');
@@ -19,10 +19,9 @@ const output = solc.compile(input.toString());
 const abi = JSON.parse(output.contracts[':TokenERC20'].interface);
 
 //------------------------------ init property ----------------------------
-Config = require('./config/config.js');
 
 //amount of airdrop
-var amount = Config.approveModule.amount;
+var amount = web3.utils.toWei(Config.approveModule.amount, 'ether');
 //airdrop contract address
 var airdropApproveAddress = Config.approveModule.airdropApproveAddress;
 //user privateKey
@@ -42,20 +41,21 @@ function approveTransfer(approveAddress,amount,fromAddress,userPrivateKey,succes
         data: token.methods.approve(approveAddress,
             amount).encodeABI()
     };
-//Get the current gas price (not used temporarily)
+
+    //get current gasPrice, you can use default gasPrice or custom gasPrice!
     web3.eth.getGasPrice().then(function(p) {
         //t.gasPrice = web3.utils.toHex(p);
-        t.gasPrice = web3.utils.toHex(2000000000);
+        t.gasPrice = web3.utils.toHex(Config.transaction.gasPrice);
         //get nonce
         web3.eth.getTransactionCount(fromAddress,
             function(err, r) {
                 t.nonce = web3.utils.toHex(r);
                 t.from = fromAddress;
-                //get gasLimit（not used temporarily）
+
+                //get gasLimit value , you can use estimateGas or custom gasLimit!
                 web3.eth.estimateGas(t,
                     function(err, gas) {
-                        gas = '4700000';
-                        t.gasLimit = web3.utils.toHex(gas);
+                        t.gasLimit = web3.utils.toHex(Config.transaction.gasLimit);
 
                         var tx = new Tx(t);
                         var privateKey = new Buffer(userPrivateKey, 'hex');

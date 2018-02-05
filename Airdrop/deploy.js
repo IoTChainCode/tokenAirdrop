@@ -3,22 +3,20 @@
  */
 const fs = require('fs');
 const solc = require('solc');
-const Web3 = require('web3');
-const url = "https://mainnet.infura.io";
-//const url = 'https://rinkeby.infura.io/0x585a40461ff12c6734e8549a7fb527120d4b8d0d';
-const web3 = new Web3(new Web3.providers.HttpProvider(url));
+
 var Tx = require('ethereumjs-tx');
 var ethjsaccount = require('ethjs-account');
 
+const Config = require('./config/config.js');
+Web3 = require('web3');
+const web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
 
 //------------------------------ init property ----------------------------
-Config = require('./config/config.js');
 
 //user privateKey
 const userPrivateKey = Config.deployModule.userPrivateKey;
 //contract address
 const contractPath = './contract/airdrop.sol';
-
 
 //-------------------------------- contract --------------------------------
 // compile the code
@@ -34,24 +32,22 @@ function deployContract(userPrivateKey,fromAddress,success, error) {
         value: '0x00',
         data: ('0x'+bytecode)
     };
-//  Get the current gas price (not used temporarily)
+    //get current gasPrice, you can use default gasPrice or custom gasPrice!
     web3.eth.getGasPrice().then(function(p) {
         //t.gasPrice = web3.utils.toHex(p);
         //1 Gwei
-        t.gasPrice = web3.utils.toHex(2000000000);
+        t.gasPrice = web3.utils.toHex(Config.transaction.gasPrice);
         //get nonce
         web3.eth.getTransactionCount(fromAddress,
             function(err, r) {
                 t.nonce = web3.utils.toHex(r);
                 t.from = fromAddress;
 
-                //get gasLimit（not used temporarily）
+                //get gasLimit value , you can use estimateGas or custom gasLimit!
                 web3.eth.estimateGas(t,
                     function(err, gas) {
                         //web3.utils.toHex(gas);
-
-                        gasLimt = '4700000';
-                        t.gasLimit = web3.utils.toHex(gasLimt);
+                        t.gasLimit = web3.utils.toHex(Config.transaction.gasLimit);
 
                         //初始化transaction
                         var tx = new Tx(t);
@@ -111,3 +107,9 @@ privateKeyToAddress(userPrivateKey,function (address) {
         console.log("error:"+JSON.stringify(error));
     });
 });
+
+/*
+ deploySuccess!!!
+ blockHash：0x598ecb89d6d999d56fb0f5d4078d1b6b424aadabb09a7a0037b32911374bad68
+ contractAddress：0xceCf9E39E17330fF5e802895aaa5Bd02614313Bd
+* */
