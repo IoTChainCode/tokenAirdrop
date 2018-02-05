@@ -17,13 +17,13 @@ module.exports = {
         transferFromAddress:''
     },
     approveModule:{
-        userPrivateKey = '',
-        amount = web3.utils.toWei('1000', 'ether'),             //The amount of contract transferable accounts
-        airdropApproveAddress = '',                             //airdrop contract address
-        tokenContractAddress = ''
+        userPrivateKey : '',
+        amount : web3.utils.toWei('1000', 'ether'),             //The amount of contract transferable accounts
+        airdropApproveAddress : '',                             //airdrop contract address
+        tokenContractAddress : ''
     },
     deployModule:{
-        userPrivateKey = ''
+        userPrivateKey : ''
     }
 
 };
