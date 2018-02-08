@@ -2,7 +2,7 @@
  * Created by zhaoyiyu on 2018/1/29.
  */
 
-const Config = require('./config/config.js');
+const Config = require('./../config/config.js');
 
 Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
