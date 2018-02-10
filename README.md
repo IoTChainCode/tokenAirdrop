@@ -14,35 +14,40 @@ you need set 'amount','airdropApproveAddress','userPrivateKey' and 'tokenContrac
 then run approve.js , it will print the txHash and transfer result;
 
 --- airdrop.js
-This airdrop.js is an executive document of the airdrop contract. you should initialize the parameters in the file and run airdrop.js.
-the airdrop result will be printed on the console.
+This airdrop.js is an executive document of the airdrop contract.
 
----- config.js
+--- config.js
 This config.js is the config file, contain 'airdropModule','approveModule','deployModule';
+
+--- normal_airdrop.js
+First of all,you need initialize the parameters in the config file , then run normal_airdrop.js. airdrop result will be printed on the console.
+
+--- awards_airdrop.js
+This file is used to generate random award lists and airdrop ERC20Token to the  award-winning addresses.
 
 The airdrop sequence is as follows:
 1. Deploy ERC20Token contract and airdrop contract.
 2. Approve enough ERC20 tokens to the airdrop contract.
 3. Compile a list of reciepient addresses and store them in 'airdropList.txt' file.
-4. Run 'airdrop.js' script.
+4. Run 'normal_airdrop.js' script.
 5. You can look the airdrop result on the console or check the txHash in 'https://etherscan.io';
 
 If you are not familiar with the smart contract, then follow the steps below!
-1.npm install web3 solc ethereumjs-tx ethjs-account --save
-2.Config your userPrivateKey in config.js ->deployModule->userPrivateKey
-3.Run deploy.js , then you will get the result on console ,like this:
+1. npm install web3 solc ethereumjs-tx ethjs-account --save
+2. Config your userPrivateKey in config.js ->deployModule->userPrivateKey
+3. Run deploy.js , then you will get the result on console ,like this:
 /*
 deploySuccess!!!
 blockHash：0x598ecb89d6d999d56fb0f5d4078d1b6b424aadabb09a7a0037b32911374bad68
 contractAddress：0xceCf9E39E17330fF5e802895aaa5Bd02614313Bd
 **/
-4.copy the contractAddress on the console, and paste it in config.js ->approveModule->airdropApproveAddress
-5.Config your tokenContractAddress and userPrivateKey in config.js ->approveModule. this userPrivateKey is the private key of the account which you want to use for transfer token;
-6.Run approve.js, then your will get the result on console .
-7.Config your parameters in config.js ->airdropModule .
-8.update your address in airdrop.txt.
-9. Run 'airdrop.js' script.
-10.You can look the airdrop result on the console or check the txHash in 'https://etherscan.io'.
+4. copy the contractAddress on the console, and paste it in config.js ->approveModule->airdropApproveAddress
+5. Config your tokenContractAddress and userPrivateKey in config.js ->approveModule. this userPrivateKey is the private key of the account which you want to use for transfer token;
+6. Run approve.js, then your will get the result on console .
+7. Config your parameters in config.js ->airdropModule .
+8. update your aridiopList in itc_airdrop_total.xlsx!
+9. Run 'normal_airdrop.js' script.
+10. You can check the airdrop result on the console or check the txHash in 'https://etherscan.io'.
 
 
 

@@ -56,7 +56,7 @@ var getRepeatAccount = function (dataArr) {
 var parseTotalAirdropList = function (result){
 
     //read xlsx data
-    data = readFile(totalAirdropListPath);
+    var data = readFile(totalAirdropListPath);
 
     //repeat address index
     var repeatAirdropAddressIndexs = getRepeatAccount(data);
@@ -152,13 +152,11 @@ var parseAwardsAirdropList = function (result){
 function createRandomAward(){
 
     //read xlsx data
-    data = readFile(totalAirdropListPath);
+    var data = readFile(totalAirdropListPath);
 
     var airdropList = [];
     var nameList = [];
-
-    var totolaName = [];
-
+    
     for (var i in data){
 
         var arr = data[i];
@@ -169,15 +167,13 @@ function createRandomAward(){
             airdropList.push(obj);
             nameList.push(arr[1]);
         }
-
-        totolaName.push(arr[1]);
     }
 
     var amountsArr = [];
     var accountsArr = [];
 
     //recoderArr
-    var data = [['Name','Rwards','Amount','sequence','Token Address']];
+    var writeContent = [['Name','Rwards','Amount','Token Address']];
 
     for (var i = 0; i < 500 + 20 + 1 ; i ++) {
 
@@ -209,10 +205,6 @@ function createRandomAward(){
                 content.push(awardName);
                 content.push(amount);
 
-                var index = totolaName.indexOf(name);
-
-                content.push(index);
-
                 accountsArr.push(obj);
                 content.push(obj);
                 break;
@@ -220,11 +212,11 @@ function createRandomAward(){
         }
 
 
-        data.push(content);
+        writeContent.push(content);
     }
 
     //记录
-    writeData(data);
+    writeData(writeContent);
 
     //result(accountsArr,amountsArr);
 };
