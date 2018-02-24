@@ -49,6 +49,7 @@ function approveTransfer(approveAddress,amount,fromAddress,userPrivateKey,succes
         //get nonce
         web3.eth.getTransactionCount(fromAddress,
             function(err, r) {
+
                 t.nonce = web3.utils.toHex(r);
                 t.from = fromAddress;
 

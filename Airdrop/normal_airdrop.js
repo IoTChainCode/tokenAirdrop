@@ -19,7 +19,7 @@ airdropList.normalAirdrop(function (addresses) {
     for (var i = 0 ; i < addresses.length ; i ++){
         amounts.push(ercAirDropAmount);
     }
+    console.log(addresses);
 
-    return;
     airdrop.transferTool(addresses,amounts);
 });

@@ -61,7 +61,6 @@ var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,aird
         //get nonce value
         web3.eth.getTransactionCount(fromAddress,
             function(err, r) {
-
                 t.nonce = web3.utils.toHex(r);
                 t.from = fromAddress;
                 //get gasLimit value , you can use estimateGas or custom gasLimit!
@@ -114,11 +113,10 @@ var privateKeyToAddress = function(privateKey,result) {
 
 var transferWithAddressAndAmounts = function(addresses,amounts) {
 
-
     var airdropAmounts = [];
     for (var i in amounts){
 
-        var amount = amounts[i];
+        var amount = amounts[i].toString();
         var obj = web3.utils.toWei(amount, 'ether');
         airdropAmounts.push(obj);
     }

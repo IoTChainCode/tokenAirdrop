@@ -1,7 +1,6 @@
 {
   "name": "airdrop",
   "version": "1.0.0",
-  "description": "",
   "main": "airdrop.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +9,10 @@
   "license": "ISC",
   "dependencies": {
     "ethereumjs-tx": "^1.3.3",
-    "ethjs-account": "^0.1.4"
-  }
+    "ethjs-account": "^0.1.4",
+    "node-xlsx": "^0.11.2",
+    "solc": "^0.4.20",
+    "web3": "^1.0.0-beta.30"
+  },
+  "description": ""
 }
