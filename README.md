@@ -2,7 +2,7 @@
 This project can be used for all ERC20 based tokens for airdrop distribution！
 
 ——- dependency library
-npm install web3 solc ethereumjs-tx ethjs-account --save
+npm install web3 solc ethereumjs-tx ethjs-account node-xlsx --save
 
 --- deploy.js
 This deploy.js can help you deploy the contract，you need set 'contractPath' and 'userPrivateKey' ,then run the deploy.js ,
