@@ -138,11 +138,7 @@ module.exports = {
     transferTool:transferWithAddressAndAmounts
 };
 
-//-----------------------  查看余额  ------------------
-// web3.eth.getBalance('0x1c74B2FD24FD37458c7DB81eC2203f1a86ec9D01').then(console.log);
-// web3.eth.getBlockNumber().then(console.log);
-
-//-----------------------  打印私钥  ------------------
+//----------------------- get privateKey  ------------------
 //var privateKey = web3.eth.accounts.decrypt({"address":"3b0ede4561606c26bc588b225bdafc35374a868e","crypto":{"cipher":"aes-128-ctr","ciphertext":"a4caa0654a4bc81523593117f6009aa6ef65bd6bfc427f0df2361171ec2470c9","cipherparams":{"iv":"d71d505800f4db2f9c24e52b20f0faa9"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"e12e9ee578a64e4c9d5f81a25d17b555da4035f10ff7c563e5e40bfa66198c9d"},"mac":"dc23ee572ff3fcc5e5fe7ef69c6c9f4c98b98eaa1bc5c85cbfed5738b34bf0fc"},"id":"c8917580-d6b8-490d-8a69-11d76f3e7021","version":3},'zhaoyiyu');
 //console.log(privateKey);
 /*

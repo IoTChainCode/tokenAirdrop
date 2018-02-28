@@ -42,14 +42,14 @@ module.exports = {
         gasLimit:6000000
     },
     airdropModule: {
-        userPrivateKey:'',                                     //send transaction
+        userPrivateKey:'0x1311795de329cf9e8debd6441eae1437122e0bddf28911f8b6d770dc46a3b0e8',                                     //send transaction
         ercAirDropAmount:'1',       //amount of airdrop
         airContractAddress:'0xceCf9E39E17330fF5e802895aaa5Bd02614313Bd',
         tokenContractAddress:'0xc0eE6Df91C455c64928F1F179C2B84eb61E58870',                               //erc20 token contract address
         transferFromAddress:'0x585a40461FF12C6734E8549A7FB527120D4b8d0D'
     },
     approveModule:{
-        userPrivateKey : '',
+        userPrivateKey : '0x1311795de329cf9e8debd6441eae1437122e0bddf28911f8b6d770dc46a3b0e8',
         amount : '5000',             //The amount of contract transferable accounts
         airdropApproveAddress : '0xceCf9E39E17330fF5e802895aaa5Bd02614313Bd',                             //airdrop contract address
         tokenContractAddress : '0xc0eE6Df91C455c64928F1F179C2B84eb61E58870'
