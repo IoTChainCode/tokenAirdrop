@@ -36,7 +36,7 @@ module.exports = {
     }
 };
 
-//以太坊Rinkeby网络参数（不支持监听交易确认，自动循环发送，需手动发送）
+//以太坊Rinkeby网络参数（不支持监听交易确认以及自动循环发送，需手动发送）
 // module.exports = {
 //     transaction:{
 //         url:'https://rinkeby.infura.io/0x585a40461ff12c6734e8549a7fb527120d4b8d0d',
