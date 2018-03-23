@@ -7,7 +7,7 @@ const solc = require('solc');
 var Tx = require('ethereumjs-tx');
 var ethjsaccount = require('ethjs-account');
 
-const Config = require('./../config/config.js');
+const Config = require('./../config/config');
 Web3 = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
 
@@ -16,7 +16,7 @@ const web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
 //user privateKey
 const userPrivateKey = Config.deployModule.userPrivateKey;
 //contract address
-const contractPath = './contract/airdrop.sol';
+const contractPath = './../contract/airdrop.sol';
 
 //-------------------------------- contract --------------------------------
 // compile the code
@@ -107,9 +107,3 @@ privateKeyToAddress(userPrivateKey,function (address) {
         console.log("error:"+JSON.stringify(error));
     });
 });
-
-/*
- deploySuccess!!!
- blockHash：0x598ecb89d6d999d56fb0f5d4078d1b6b424aadabb09a7a0037b32911374bad68
- contractAddress：0xceCf9E39E17330fF5e802895aaa5Bd02614313Bd
-* */
