@@ -2,6 +2,7 @@
  * Created by zhaoyiyu on 2018/2/5.
  */
 
+//const totalAirdropListPath = './airdrop_list/xinhaoAwards.csv';
 const totalAirdropListPath = './airdrop_list/itc_airdrop_total.xlsx';
 const awardsAirdropListPath = './airdrop_list/awards.xlsx';
 const errorAirdropListPath = './airdrop_list/errorAddress.xlsx';
@@ -37,6 +38,7 @@ var getRepeatAccount = function (dataArr) {
     var airdropList = [];
     var repeatAirdropAddressIndexs = [];
 
+    //return repeatAirdropAddressIndexs;
     for (var i in dataArr){
 
         var arr = data[i];
@@ -47,7 +49,7 @@ var getRepeatAccount = function (dataArr) {
           airdropList.push(obj);
         }
         else {
-           // console.log(obj);
+            //console.log(obj);
             repeatAirdropAddressIndexs.push(i);
         }
     }
@@ -74,7 +76,7 @@ var parseTotalAirdropList = function (result){
     //start index
     var destinationStartIndex = 0;
     //max amount
-    const  maxLength = 50;
+    const  maxLength = 10000;
 
     for (var i in data){
 
@@ -115,7 +117,7 @@ var parseTotalAirdropList = function (result){
 
     console.log('airdropListAccount:'+airdropList.length);
     console.log('repeatAccount:'+repeatList.length);
-    console.log('invalidListAccount:'+invalidAirdropList.length);
+    console.log('invalidListAccount:'+invalidAirdropList.length+'\n');
 
     result(airdropList);
 };
@@ -133,7 +135,7 @@ var parseAwardsAirdropList = function (result){
     //start index
     var destinationStartIndex = 0;
     //max amount
-    const  maxLength = 50;
+    const  maxLength = 20000;
 
     for (var i in data){
 
@@ -188,13 +190,7 @@ function createRandomAward(){
     //recoderArr
     var writeFileContent = [['Name','Rwards','Amount','sequence','Token Address']];
 
-    //account of awards
     for (var i = 0; i < 500 + 20 + 1 ; i ++) {
-
-        if (airdropList.length == i) {
-
-            break;
-        }
 
         var content = [];
 
@@ -238,7 +234,7 @@ function createRandomAward(){
         writeFileContent.push(content);
     }
 
-    //recoder
+    //记录
     writeData(writeFileContent,awardsAirdropListPath);
 };
 
