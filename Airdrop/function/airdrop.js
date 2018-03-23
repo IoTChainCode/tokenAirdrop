@@ -18,10 +18,14 @@ const input = fs.readFileSync('./contract/airdrop.sol');
 const output = solc.compile(input.toString());
 const abi = JSON.parse(output.contracts[':TokenAirDrop'].interface);
 
+
+const tokenInput = fs.readFileSync('./contract/erc20Token.sol');
+const tokenOutput = solc.compile(tokenInput.toString());
+const tokenAbi = JSON.parse(tokenOutput.contracts[':TokenERC20'].interface);
 //------------------------------ init property ----------------------------
 
 //airdrop contract address
-const airContractAddress = Config.airdropModule.airContractAddress;
+const airContractAddress = Config.airdropModule.airdropContractAddress;
 //user privateKey
 const userPrivateKey = Config.airdropModule.userPrivateKey;
 //erc20 token contract address
@@ -29,27 +33,44 @@ const tokenContractAddress = Config.airdropModule.tokenContractAddress;
 //transfer from address
 const transferFromAddress = Config.airdropModule.transferFromAddress;
 
-
 //-------------------------------- contract --------------------------------
 
-var token = new web3.eth.Contract(abi, airContractAddress);
+var airdropContract = new web3.eth.Contract(abi, airContractAddress);
 
-token.events.TokenDrop(function (result) {
-    //console.log("\n\n----------------------didWatchTokenDropEvent----------------------\n\n");
-}).on('data', function(event){
-    //console.log("\n\n----------------------didReceiveData----------------------\n\n");
-    console.log(event.returnValues);
-}).on('error',console.error);
+var tokenContract = new web3.eth.Contract(tokenAbi, tokenContractAddress);
 
 
+// tokenContract.methods.name().call().then(console.log);
+//
+// tokenContract.methods.balanceOf('0x585a40461FF12C6734E8549A7FB527120D4b8d0D').call(null,function(error,result){
+//     console.log("balance ->"+result);
+// });
 
-var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,airdropDestinationAddresses, airdropAmounts, fromAddress,userPrivateKey,success, error) {
+//-------------------------------- event --------------------------------
+
+tokenContract.events.Transfer({
+    fromBlock: 0,
+    toBlock:'latest'
+}, function(error, event){ console.log("result:\n"+JSON.stringify(event)); })
+    .on('data', function(event){
+        console.log(event); // same results as the optional callback above
+    })
+    .on('changed', function(event){
+        // remove event from local database
+    })
+    .on('error', console.error);
+
+//-------------------------------- function --------------------------------
+
+var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,airdropDestinationAddresses, airdropAmounts,userPrivateKey,hashIdCallBack,success, error) {
+
+    var fromAddress = privateKeyToAddress(userPrivateKey);
 
     //transaction config
     var t = {
         to: airContractAddress,
         value: '0x00',
-        data: token.methods.airDrop(erc20TokenContractAddress,
+        data: airdropContract.methods.airDrop(erc20TokenContractAddress,
             airDropOriginalAddress,
             airdropDestinationAddresses,
             airdropAmounts).encodeABI()
@@ -80,6 +101,7 @@ var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,aird
                         //sendSignedTransaction
                         web3.eth.sendSignedTransaction(serializedTx).on('transactionHash',function(hash){
                             console.log('hashId:'+ hash+'\n');
+                            hashIdCallBack(hash);
                         }).on('receipt',function(receipt){
                             //console.log('receipt:'+ JSON.stringify(receipt));
                             var s = receipt.status;
@@ -106,51 +128,85 @@ var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,aird
 };
 
 
-var privateKeyToAddress = function(privateKey,result) {
+var privateKeyToAddress = function(privateKey) {
+
     var address = ethjsaccount.privateToAccount(privateKey).address;
-    result(address);
+    return address;
 };
+
+
+var totalAirdropAdress = [];
+var totalAmounts = [];
 
 var transferWithAddressAndAmounts = function(addresses,amounts) {
 
-    var airdropAmounts = [];
     for (var i in amounts){
 
         var amount = amounts[i].toString();
         var obj = web3.utils.toWei(amount, 'ether');
-        airdropAmounts.push(obj);
+        totalAmounts.push(obj);
     }
 
-//Get the private key corresponding account and initiate the transfer
-    privateKeyToAddress(userPrivateKey,function (address) {
+    totalAirdropAdress = addresses;
 
-        transfer(tokenContractAddress,transferFromAddress,addresses,airdropAmounts,address,userPrivateKey,function (success) {
-
-            console.log("success:"+success);
-        },function (error) {
-
-            console.log("error:"+error);
-        });
-    });
+    startHandleAirdrop(0);
 };
+
+
+var listen = require('./listen');
+const onceAmountOfAirdropList = 2;
+
+function startHandleAirdrop(index) {
+
+    console.log('\n');
+
+
+    var currentAddresses = [];
+    var currentAmounts = [];
+
+    var didSendLastAirdropList = false;
+
+    for(i = index * onceAmountOfAirdropList ; i < (index +1) * onceAmountOfAirdropList ; i ++ ){
+
+        var address = totalAirdropAdress[i];
+        var amount = totalAmounts[i];
+
+        currentAddresses.push(address);
+        currentAmounts.push(amount);
+
+        //判断是否为最后一部分
+        if (i == totalAirdropAdress.length - 1){
+            didSendLastAirdropList = true;
+            break;
+        }
+    }
+
+    console.log(currentAddresses +'\n'+currentAmounts);
+
+    transfer(tokenContractAddress,transferFromAddress,currentAddresses,currentAmounts,userPrivateKey,function (hashId) {
+
+        listen.startListenAirdropResult(hashId,function (result) {
+
+            console.log('\n\n第'+(index+1)+'波已发送完毕\n');
+
+            //判断是否已经发送完最后一批
+            if(didSendLastAirdropList){
+                console.log("\n全部发送完毕!!!\n\n");
+                listen.stopListen();
+            }
+            else {
+                startHandleAirdrop(index+1);
+            }
+        });
+    },function (success) {
+
+        console.log("success:"+success);
+    },function (error) {
+
+        console.log("error:"+error);
+    });
+}
 
 module.exports = {
     transferTool:transferWithAddressAndAmounts
 };
-
-//----------------------- get privateKey  ------------------
-//var privateKey = web3.eth.accounts.decrypt({"address":"3b0ede4561606c26bc588b225bdafc35374a868e","crypto":{"cipher":"aes-128-ctr","ciphertext":"a4caa0654a4bc81523593117f6009aa6ef65bd6bfc427f0df2361171ec2470c9","cipherparams":{"iv":"d71d505800f4db2f9c24e52b20f0faa9"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"e12e9ee578a64e4c9d5f81a25d17b555da4035f10ff7c563e5e40bfa66198c9d"},"mac":"dc23ee572ff3fcc5e5fe7ef69c6c9f4c98b98eaa1bc5c85cbfed5738b34bf0fc"},"id":"c8917580-d6b8-490d-8a69-11d76f3e7021","version":3},'zhaoyiyu');
-//console.log(privateKey);
-/*
- {
- address: '0x585a40461FF12C6734E8549A7FB527120D4b8d0D',
- privateKey: '0x1311795de329cf9e8debd6441eae1437122e0bddf28911f8b6d770dc46a3b0e8',
- signTransaction: [Function: signTransaction],
- sign: [Function: sign],
- encrypt: [Function: encrypt]}
- { address: '0x3B0edE4561606C26bc588B225BdAfC35374A868e',
- privateKey: '0x5f36046052f3a23e7414c6039c458a8a9bd01362ab4ae80e6a4c0d360ae07e8d',
- signTransaction: [Function: signTransaction],
- sign: [Function: sign],
- encrypt: [Function: encrypt] }
- * */

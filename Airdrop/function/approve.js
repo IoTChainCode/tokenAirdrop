@@ -14,7 +14,7 @@ const fs = require('fs');
 const solc = require('solc');
 
 // compile the code
-const input = fs.readFileSync('./contract/erc20Token.sol');
+const input = fs.readFileSync('./../contract/erc20Token.sol');
 const output = solc.compile(input.toString());
 const abi = JSON.parse(output.contracts[':TokenERC20'].interface);
 
@@ -23,7 +23,7 @@ const abi = JSON.parse(output.contracts[':TokenERC20'].interface);
 //amount of airdrop
 var amount = web3.utils.toWei(Config.approveModule.amount, 'ether');
 //airdrop contract address
-var airdropApproveAddress = Config.approveModule.airdropApproveAddress;
+var airdropApproveAddress = Config.approveModule.airdropContractAddress;
 //user privateKey
 var userPrivateKey = Config.approveModule.userPrivateKey;
 //erc20 token contract address
