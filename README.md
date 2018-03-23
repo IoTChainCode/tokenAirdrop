@@ -1,5 +1,8 @@
 # ERC20TokenAridrop
 This project can be used for all ERC20 based tokens for airdrop distribution！
+1. A single transmission can support up to two hundred transfers.
+2. Realize the monitoring transaction status and automatically send the next one.
+3. The implementation fee is reduced to 0.000045--0.0007 eth/transcation.
 
 ——- dependency library
 npm install web3 solc ethereumjs-tx ethjs-account node-xlsx --save
@@ -33,7 +36,7 @@ The airdrop sequence is as follows:
 5. You can look the airdrop result on the console or check the txHash in 'https://etherscan.io';
 
 If you are not familiar with the smart contract, then follow the steps below!
-1. npm install web3 solc ethereumjs-tx ethjs-account --save
+1. npm install web3 solc ethereumjs-tx ethjs-account ws silly-datetime --save
 2. Config your userPrivateKey in config.js ->deployModule->userPrivateKey
 3. Run deploy.js , then you will get the result on console ,like this:
 /*
