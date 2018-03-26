@@ -2,7 +2,7 @@
 This project can be used for all ERC20 based tokens for airdrop distribution！
 1. A single transmission can support up to two hundred transfers.
 2. Realize the monitoring transaction status and automatically send the next one.
-3. The implementation fee is reduced to 0.000045--0.0007 eth/transcation.
+3. The implementation fee is reduced to 0.000045--0.00007 eth/transcation.
 
 ——- dependency library
 npm install web3 solc ethereumjs-tx ethjs-account node-xlsx --save

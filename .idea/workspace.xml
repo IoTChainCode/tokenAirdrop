@@ -21,11 +21,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="config.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Airdrop/config/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="23" />
+            <state relative-caret-position="165">
+              <caret line="11" column="32" lean-forward="false" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -44,19 +44,9 @@
       <file leaf-file-name="airdrop.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Airdrop/function/airdrop.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3165">
-              <caret line="212" column="0" lean-forward="true" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
-              <folding>
-                <marker date="1521776338679" expanded="true" signature="5826:7066" ph="{...}" />
-                <marker date="1521776338679" expanded="true" signature="6051:6363" ph="{...}" />
-                <marker date="1521776338679" expanded="true" signature="6284:6357" ph="{...}" />
-                <marker date="1521776338679" expanded="true" signature="6541:6930" ph="{...}" />
-                <marker date="1521776338679" expanded="true" signature="6609:6922" ph="{...}" />
-                <marker date="1521776338679" expanded="true" signature="6734:6834" ph="{...}" />
-                <marker date="1521776338679" expanded="true" signature="6852:6912" ph="{...}" />
-                <marker date="1521776338679" expanded="true" signature="6950:6999" ph="{...}" />
-                <marker date="1521776338679" expanded="true" signature="7017:7062" ph="{...}" />
-              </folding>
+            <state relative-caret-position="3180">
+              <caret line="212" column="0" lean-forward="false" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -121,11 +111,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="60">
+              <caret line="4" column="74" lean-forward="true" selection-start-line="4" selection-start-column="74" selection-end-line="4" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -149,11 +139,11 @@
         <option value="$PROJECT_DIR$/Airdrop/airdrop.js" />
         <option value="$PROJECT_DIR$/Airdrop/approve.js" />
         <option value="$PROJECT_DIR$/Airdrop/deploy.js" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/Airdrop/awards_airdrop.js" />
         <option value="$PROJECT_DIR$/Airdrop/function/deploy.js" />
         <option value="$PROJECT_DIR$/Airdrop/function/airdrop.js" />
         <option value="$PROJECT_DIR$/Airdrop/config/config.js" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -269,8 +259,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -372,12 +362,13 @@
       <workItem from="1519758359378" duration="613000" />
       <workItem from="1521773796757" duration="2151000" />
       <workItem from="1521776153612" duration="13000" />
-      <workItem from="1521776941424" duration="281000" />
+      <workItem from="1521776941424" duration="1207000" />
+      <workItem from="1522045859971" duration="14000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8571000" />
+    <option name="totallyTimeSpent" value="9511000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="61" y="22" width="1379" height="878" extended-state="6" />
@@ -412,6 +403,30 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Airdrop/function/approve.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Airdrop/function/deploy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1635">
+          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Airdrop/config/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -432,17 +447,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3165">
           <caret line="211" column="2" lean-forward="false" selection-start-line="211" selection-start-column="2" selection-end-line="211" selection-end-column="2" />
-          <folding>
-            <marker date="1521776338679" expanded="true" signature="5826:7066" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6051:6363" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6284:6357" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6541:6930" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6609:6922" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6734:6834" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6852:6912" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6950:6999" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="7017:7062" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -522,17 +527,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3165">
           <caret line="211" column="2" lean-forward="false" selection-start-line="211" selection-start-column="2" selection-end-line="211" selection-end-column="2" />
-          <folding>
-            <marker date="1521776338679" expanded="true" signature="5826:7066" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6051:6363" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6284:6357" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6541:6930" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6609:6922" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6734:6834" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6852:6912" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6950:6999" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="7017:7062" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -604,17 +599,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1521776338679" expanded="true" signature="5826:7066" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6051:6363" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6284:6357" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6541:6930" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6609:6922" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6734:6834" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6852:6912" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6950:6999" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="7017:7062" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -707,14 +692,6 @@
     <entry file="file://$PROJECT_DIR$/Airdrop/deploy.js" />
     <entry file="file://$PROJECT_DIR$/Airdrop/approve.js" />
     <entry file="file://$PROJECT_DIR$/Airdrop/airdrop.js" />
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Airdrop/awards_airdrop.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -758,19 +735,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Airdrop/function/airdrop.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3165">
-          <caret line="212" column="0" lean-forward="true" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
-          <folding>
-            <marker date="1521776338679" expanded="true" signature="5826:7066" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6051:6363" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6284:6357" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6541:6930" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6609:6922" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6734:6834" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6852:6912" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="6950:6999" ph="{...}" />
-            <marker date="1521776338679" expanded="true" signature="7017:7062" ph="{...}" />
-          </folding>
+        <state relative-caret-position="3180">
+          <caret line="212" column="0" lean-forward="false" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -792,8 +759,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Airdrop/config/config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="23" />
+        <state relative-caret-position="165">
+          <caret line="11" column="32" lean-forward="false" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="74" lean-forward="true" selection-start-line="4" selection-start-column="74" selection-end-line="4" selection-end-column="74" />
           <folding />
         </state>
       </provider>
