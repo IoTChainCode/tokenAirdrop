@@ -195,6 +195,7 @@ function startHandleAirdrop(index) {
                 listen.stopListen();
             }
             else {
+                console.log('\n开始第' + (index+2) + '波空投地址\n\n');
                 startHandleAirdrop(index+1);
             }
         });
