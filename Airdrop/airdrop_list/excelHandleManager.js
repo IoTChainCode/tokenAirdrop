@@ -39,7 +39,7 @@ function writeData(data,path) {
 }
 
 
-moudule.exports = {
+module.exports = {
 
     readExcelContent:readFile,
     writeDataToExcel:writeData
