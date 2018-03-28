@@ -4,6 +4,8 @@ This project can be used for all ERC20 based tokens for airdrop distribution！
 2. Realize the monitoring transaction status and automatically send the next one.
 3. The implementation fee is reduced to 0.000045--0.00007 eth/transcation.
 
+Note: this does not support the monitoring of contract events on the Ethernet rinkeby/ropsten network
+
 ——- dependency library
 npm install web3 solc ethereumjs-tx ethjs-account node-xlsx --save
 

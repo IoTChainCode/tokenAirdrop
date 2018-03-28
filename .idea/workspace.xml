@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c70f3b27-7a20-47ef-9c89-59792e2bfa33" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Airdrop/airdrop_list/airdropList.js" afterPath="$PROJECT_DIR$/Airdrop/airdrop_list/airdropList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Airdrop/airdrop_list/excelHandleManager.js" afterPath="$PROJECT_DIR$/Airdrop/airdrop_list/excelHandleManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Airdrop/config/config.js" afterPath="$PROJECT_DIR$/Airdrop/config/config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,11 +20,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="config.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Airdrop/config/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="38" column="28" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state relative-caret-position="214">
+              <caret line="45" column="20" lean-forward="true" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -112,11 +110,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state relative-caret-position="90">
+              <caret line="6" column="93" lean-forward="false" selection-start-line="6" selection-start-column="93" selection-end-line="6" selection-end-column="93" />
               <folding />
             </state>
           </provider>
@@ -151,10 +149,10 @@
         <option value="$PROJECT_DIR$/Airdrop/function/listen.js" />
         <option value="$PROJECT_DIR$/Airdrop/function/deploy.js" />
         <option value="$PROJECT_DIR$/Airdrop/function/airdrop.js" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/Airdrop/airdrop_list/airdropList.js" />
         <option value="$PROJECT_DIR$/Airdrop/config/config.js" />
         <option value="$PROJECT_DIR$/Airdrop/airdrop_list/excelHandleManager.js" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -166,7 +164,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="42" />
-    <option name="y" value="22" />
+    <option name="y" value="23" />
     <option name="width" value="1398" />
     <option name="height" value="878" />
   </component>
@@ -383,15 +381,15 @@
       <workItem from="1522052390532" duration="72000" />
       <workItem from="1522052498408" duration="1088000" />
       <workItem from="1522115621724" duration="1984000" />
-      <workItem from="1522227101825" duration="1108000" />
+      <workItem from="1522227101825" duration="1790000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15052000" />
+    <option name="totallyTimeSpent" value="15734000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="42" y="22" width="1398" height="878" extended-state="6" />
+    <frame x="42" y="23" width="1398" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24909224" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -731,14 +729,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Airdrop/function/listen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
@@ -789,8 +779,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Airdrop/config/config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="38" column="28" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        <state relative-caret-position="214">
+          <caret line="45" column="20" lean-forward="true" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="93" lean-forward="false" selection-start-line="6" selection-start-column="93" selection-end-line="6" selection-end-column="93" />
           <folding />
         </state>
       </provider>
