@@ -33,6 +33,22 @@ function readFile(path){
     return data;
 }
 
+function writeData(data,path) {
+
+    var xlsx = require('node-xlsx');
+    var fs = require('fs');
+
+    var buffer = xlsx.build([
+        {
+            name:'sheet1',
+            data:data
+        }
+    ]);
+
+    fs.writeFileSync(path,buffer,{'flag':'w'});
+}
+
+
 var getRepeatAccount = function (dataArr) {
 
     var airdropList = [];
@@ -263,21 +279,6 @@ function GetRandomNum(Min,Max)
     return(Min + Math.round(Rand * Range));
 }
 
-function writeData(data,path) {
-
-    var xlsx = require('node-xlsx');
-    var fs = require('fs');
-
-    var buffer = xlsx.build([
-        {
-            name:'sheet1',
-            data:data
-        }
-    ]);
-
-    fs.writeFileSync(path,buffer,{'flag':'w'});
-}
-
 
 // exports function
 
@@ -309,5 +310,5 @@ module.exports = {
     normalAirdrop:normalAirdrop,
     awardAridropList:awardsAirdrop,
     getErrorList:getErrorAddressList
-
+    writeTranscationRecoder:writeData
 };

@@ -39,6 +39,7 @@ If you are not familiar with the smart contract, then follow the steps below!
 1. npm install web3 solc ethereumjs-tx ethjs-account ws silly-datetime --save
 2. Config your userPrivateKey in config.js ->deployModule->userPrivateKey
 3. Run deploy.js , then you will get the result on console ,like this:
+
 /*
 deploySuccess!!!
 blockHash：0x598ecb89d6d999d56fb0f5d4078d1b6b424aadabb09a7a0037b32911374bad68
