@@ -37,7 +37,7 @@ console.log('require librarys');
 //     }
 // };
 
-//以太坊Rinkeby网络参数（不支持监听交易确认以及自动循环发送，需手动发送）
+//以太坊Rinkeby网络参数
 module.exports = {
     internetType:'rinkeby',
     transaction:{

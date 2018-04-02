@@ -117,11 +117,13 @@ var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,aird
                         }).on('confirmation',function(confirmationNumber, receipt){
 
                             /*web3.eth.getBlockNumber(function (number) {
-                                console.log("number--"+number+"\n");
-                            });*/
-                          //  console.log('entrance'+ JSON.stringify(confirmationNumber)+'--------------'+ JSON.stringify(receipt));
-                        }).on('error',function(error){
-                            console.log('Failure to send a signature transaction：'+error);
+                             console.log("number--"+number+"\n");
+                             });*/
+                            //  console.log('entrance'+ JSON.stringify(confirmationNumber)+'--------------'+ JSON.stringify(receipt));
+                        }).on('error',function(err){
+
+                            //error(err);
+                            console.log('send error'+err);
                         });
                     });
             });
@@ -210,10 +212,11 @@ function startHandleAirdrop(index) {
         });
     },function (success) {
 
-        console.log("success:"+success);
+        console.log("Transaction Success:\n"+success);
     },function (error) {
 
-        console.log("error:"+error);
+        console.log("Failure to send a signature transaction:\n"+error);
+        listen.stopListen();
     });
 }
 

@@ -5,18 +5,15 @@
 const sd = require('silly-datetime');
 
 const WebSocket = require('ws');
-var ws;
+var ws ;
 const Config = require('./../config/config.js');
+
+Web3 = require('web3');
+const web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
 
 //airdrop contract address
 const airContractAddress = Config.airdropModule.airdropContractAddress;
 const networkType = Config.internetType;
-
-
-//main 忘了
-if (networkType == 'main'){
-    ws = new WebSocket("wss://socket.etherscan.io/wshandler");
-}
 
 //heartbeat Number
 var intervalNumber ;
@@ -28,49 +25,56 @@ var hashSuccessBlock ;
 var listenHashId = '';
 
 //------------------------------ Websocket function --------------------------
-//connect open
-ws.onopen = function (e) {
-    console.log('Connection to server opened');
 
-    //heartbeat
-    intervalNumber = setInterval(function () {
+if (networkType == 'main'){
 
-        const ping = '{"event":"ping"}';
-        ws.send(ping);
-    },18000);
+    ws = new WebSocket("wss://socket.etherscan.io/wshandler");
 
-    //start listen
-    var sendMsg = `{"event": "txlist", "address":"${airContractAddress}"}`;
-    ws.send(sendMsg);
-};
+    //connect open
+    ws.onopen = function (e) {
+        console.log('Connection to server opened');
 
-//connect closed
-ws.onclose = function (e) {
-    console.log('connection closed.');
+        //heartbeat
+        intervalNumber = setInterval(function () {
 
-    //stop heartbeat
-    clearInterval(intervalNumber);
-};
+            const ping = '{"event":"ping"}';
+            ws.send(ping);
+        },18000);
 
-//connect error
-ws.onerror = function (e) {
-    console.log('error:'+ e);
-};
+        //start listen
+        var sendMsg = `{"event": "txlist", "address":"${airContractAddress}"}`;
+        ws.send(sendMsg);
+    };
 
-//receive message
-ws.onmessage = function(event) {
-    var time=sd.format(new Date(),'YYYY-MM-DD HH:mm:ss');
-    console.log(time + ': Client received a message' + event.data);
+    //connect closed
+    ws.onclose = function (e) {
+        console.log('connection closed.');
 
-    if (listenHashId.length != 0){
+        //stop heartbeat
+        clearInterval(intervalNumber);
+    };
 
-        var data = event.data;
-        if (data.indexOf(listenHashId) > 0){
+    //connect error
+    ws.onerror = function (e) {
+        console.log('error:'+ e);
+    };
 
-            hashSuccessBlock();
+    //receive message
+    ws.onmessage = function(event) {
+        var time=sd.format(new Date(),'YYYY-MM-DD HH:mm:ss');
+        console.log(time + ': Client received a message' + event.data);
+
+        if (listenHashId.length != 0){
+
+            var data = event.data;
+            if (data.indexOf(listenHashId) > 0){
+
+                hashSuccessBlock();
+            }
         }
-    }
-};
+    };
+}
+
 //------------------------------ API --------------------------
 var listenAirdropStatus = function(parameter,result) {
     listenHashId = parameter.hashId;
@@ -82,37 +86,60 @@ var listenAirdropStatus = function(parameter,result) {
     }
 };
 
-
 function startRinkebyListen(tokenAbi,tokenAddress,fromAddress) {
 
     var tokenContract = new web3.eth.Contract(tokenAbi, tokenAddress);
 
-    //两秒轮询一次
+    console.log('start test network listen');
+
+    //10秒轮询一次
     intervalNumber = setInterval(function () {
 
-        tokenContract.getPastEvents('Transfer', {
-            fromBlock: 1611890,
-            toBlock: 'latest',
-            filter: {from:fromAddress}
-        }, function(error, events){
-            //console.log(events);
-            var event = events[0];
-            console.log('\n'+event.transactionHash);
+        web3.eth.getBlockNumber().then(function (fromBlockNumber ) {
 
-            if (event.transactionHash == listenHashId){
+            var time=sd.format(new Date(),'YYYY-MM-DD HH:mm:ss');
+            console.log(time+':current search blockNumber->'+fromBlockNumber);
 
-                hashSuccessBlock();
-                //stop heartbeat
-                clearInterval(intervalNumber);
-            }
+            tokenContract.getPastEvents('Transfer', {
+                fromBlock: fromBlockNumber,
+                filter: {from:fromAddress}
+            }, function(error, events){
+
+                //console.log(events);
+                var event = events[0];
+                console.log('\nevent:'+event);
+
+                if (event != null){
+
+
+                    if (event.transactionHash == listenHashId){
+
+                        console.log('监听到hashId相符合的交易');
+
+                        //stop heartbeat
+                        clearInterval(intervalNumber);
+
+                        //5秒后回调
+                        setTimeout(function () {
+                            hashSuccessBlock();
+                        },5000);
+                    }
+                }
+            });
         });
-    },2000);
 
+    },10000);
 }
 
 
 var stopListen = function () {
-    ws.close();
+
+    if (networkType == 'rinkeby') {
+        clearInterval(intervalNumber);
+    }else {
+        ws.close();
+    }
+
 };
 
 module.exports = {
