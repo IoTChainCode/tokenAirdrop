@@ -32,6 +32,8 @@ const userPrivateKey = Config.airdropModule.userPrivateKey;
 const tokenContractAddress = Config.airdropModule.tokenContractAddress;
 //transfer from address
 const transferFromAddress = Config.airdropModule.transferFromAddress;
+//network type
+const networkType = Config.internetType;
 
 //-------------------------------- contract --------------------------------
 
@@ -185,7 +187,14 @@ function startHandleAirdrop(index) {
 
     transfer(tokenContractAddress,transferFromAddress,currentAddresses,currentAmounts,userPrivateKey,function (hashId) {
 
-        listen.startListenAirdropResult(hashId,function (result) {
+        var parameter = {};
+        if (networkType == 'main'){
+            parameter = {'hashId':hashId};
+        }else {
+            parameter = {'hashId':hashId,'tokenAbi':tokenAbi,'tokenAddress':tokenContractAddress,'fromAddress':transferFromAddress}
+        }
+
+        listen.startListenAirdropResult(parameter,function (result) {
 
             console.log('\n\n第'+(index+1)+'波已发送完毕\n');
 

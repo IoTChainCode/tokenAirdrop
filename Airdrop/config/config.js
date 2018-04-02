@@ -13,6 +13,7 @@ console.log('require librarys');
 
 //以太坊main网络参数
 // module.exports = {
+//     internetType:'main',
 //     transaction:{
 //         url:'https://mainnet.infura.io',
 //         gasPrice:2000000000,
@@ -38,6 +39,7 @@ console.log('require librarys');
 
 //以太坊Rinkeby网络参数（不支持监听交易确认以及自动循环发送，需手动发送）
 module.exports = {
+    internetType:'rinkeby',
     transaction:{
         url:'https://rinkeby.infura.io/0x585a40461ff12c6734e8549a7fb527120d4b8d0d',
         gasPrice:2000000000,
