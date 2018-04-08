@@ -2,18 +2,18 @@
  * Created by zhaoyiyu on 2018/3/22.
  */
 
-const sd = require('silly-datetime');
+var sd = require('silly-datetime');
 
-const WebSocket = require('ws');
+var WebSocket = require('ws');
 var ws ;
-const Config = require('./../config/config.js');
+var Config = require('./../config/config.js');
 
 Web3 = require('web3');
-const web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
+var web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
 
 //airdrop contract address
-const airContractAddress = Config.airdropModule.airdropContractAddress;
-const networkType = Config.internetType;
+var airContractAddress = Config.airdropModule.airdropContractAddress;
+var networkType = Config.internetType;
 
 //heartbeat Number
 var intervalNumber ;
@@ -37,7 +37,7 @@ if (networkType == 'main'){
         //heartbeat
         intervalNumber = setInterval(function () {
 
-            const ping = '{"event":"ping"}';
+            var ping = '{"event":"ping"}';
             ws.send(ping);
         },18000);
 

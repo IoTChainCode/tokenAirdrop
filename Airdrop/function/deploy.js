@@ -1,28 +1,28 @@
 /**
  * Created by zhaoyiyu on 2018/1/30.
  */
-const fs = require('fs');
-const solc = require('solc');
+var fs = require('fs');
+var solc = require('solc');
 
 var Tx = require('ethereumjs-tx');
 var ethjsaccount = require('ethjs-account');
 
-const Config = require('./../config/config');
+var Config = require('./../config/config');
 Web3 = require('web3');
-const web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
+var web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
 
 //------------------------------ init property ----------------------------
 
 //user privateKey
-const userPrivateKey = Config.deployModule.userPrivateKey;
+var userPrivateKey = Config.deployModule.userPrivateKey;
 //contract address
-const contractPath = './../contract/airdrop.sol';
+var contractPath = './../contract/airdrop.sol';
 
 //-------------------------------- contract --------------------------------
 // compile the code
-const input = fs.readFileSync(contractPath);
-const output = solc.compile(input.toString());
-const bytecode = output.contracts[':TokenAirDrop'].bytecode;
+var input = fs.readFileSync(contractPath);
+var output = solc.compile(input.toString());
+var bytecode = output.contracts[':TokenAirDrop'].bytecode;
 
 // deploy function
 function deployContract(userPrivateKey,fromAddress,success, error) {

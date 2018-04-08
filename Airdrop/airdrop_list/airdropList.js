@@ -3,14 +3,14 @@
  */
 
 //const totalAirdropListPath = './airdrop_list/xinhaoAwards.csv';
-const totalAirdropListPath = './airdrop_list/itc_airdrop_total.xlsx';
-const awardsAirdropListPath = './airdrop_list/awards.xlsx';
-const errorAirdropListPath = './airdrop_list/errorAddress.xlsx';
+var totalAirdropListPath = './airdrop_list/itc_airdrop_total.xlsx';
+var awardsAirdropListPath = './airdrop_list/awards.xlsx';
+var errorAirdropListPath = './airdrop_list/errorAddress.xlsx';
 
 //address 在excel中的序号
-const addressIndex = 3;
+var addressIndex = 3;
 
-const excelManager = require('./excelHandleManager');
+var excelManager = require('./excelHandleManager');
 
 var getRepeatAccount = function (dataArr) {
 
@@ -114,7 +114,7 @@ var parseAwardsAirdropList = function (result){
     //start index
     var destinationStartIndex = 0;
     //max amount
-    const  maxLength = 20000;
+    var  maxLength = 20000;
 
     for (var i in data){
 

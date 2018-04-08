@@ -2,21 +2,21 @@
  * Created by zhaoyiyu on 2018/1/29.
  */
 
-const Config = require('./../config/config.js');
+var Config = require('./../config/config.js');
 
 Web3 = require('web3');
-const web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
+var web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
 
 //init
-const Tx = require('ethereumjs-tx');
-const ethjsaccount = require('ethjs-account');
-const fs = require('fs');
-const solc = require('solc');
+var Tx = require('ethereumjs-tx');
+var ethjsaccount = require('ethjs-account');
+var fs = require('fs');
+var solc = require('solc');
 
 // compile the code
-const input = fs.readFileSync('./../contract/erc20Token.sol');
-const output = solc.compile(input.toString());
-const abi = JSON.parse(output.contracts[':TokenERC20'].interface);
+var input = fs.readFileSync('./../contract/erc20Token.sol');
+var output = solc.compile(input.toString());
+var abi = JSON.parse(output.contracts[':TokenERC20'].interface);
 
 //------------------------------ init property ----------------------------
 
