@@ -2,9 +2,9 @@
  * Created by zhaoyiyu on 2018/2/7.
  */
 
-const airdropList = require('./airdrop_list/airdropList.js');
-const airdrop = require('./function/airdrop');
-const Config = require('./config/config.js');
+var airdropList = require('./airdrop_list/airdropList.js');
+var airdrop = require('./function/airdrop');
+var Config = require('./config/config.js');
 
 airdropList.normalAirdrop(function (addresses) {
 
@@ -13,7 +13,7 @@ airdropList.normalAirdrop(function (addresses) {
     }
 
     //amount of airdrop
-    const ercAirDropAmount = Config.airdropModule.ercAirDropAmount;
+    var ercAirDropAmount = Config.airdropModule.ercAirDropAmount;
 
     var amounts = [];
     for (var i = 0 ; i < addresses.length ; i ++){

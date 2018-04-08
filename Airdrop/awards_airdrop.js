@@ -2,8 +2,8 @@
  * Created by zhaoyiyu on 2018/2/7.
  */
 
-const airdropList = require('./airdrop_list/airdropList.js');
-const airdrop = require('./function/airdrop');
+var airdropList = require('./airdrop_list/airdropList.js');
+var airdrop = require('./function/airdrop');
 
 airdropList.awardAridropList(function (addresses,amonuts) {
 
