@@ -16,7 +16,10 @@ var airContractAddress = Config.airdropModule.airdropContractAddress;
 var networkType = Config.internetType;
 
 //heartbeat Number
-var intervalNumber ;
+var heartbeatIntervalNumber;
+
+//listen
+var intervalNumber;
 
 //transcation result callback
 var hashSuccessBlock ;
@@ -35,7 +38,7 @@ if (networkType == 'main'){
         console.log('Connection to server opened');
 
         //heartbeat
-        intervalNumber = setInterval(function () {
+        heartbeatIntervalNumber = setInterval(function () {
 
             var ping = '{"event":"ping"}';
             ws.send(ping);
@@ -51,7 +54,7 @@ if (networkType == 'main'){
         console.log('connection closed.');
 
         //stop heartbeat
-        clearInterval(intervalNumber);
+        clearInterval(heartbeatIntervalNumber);
     };
 
     //connect error
