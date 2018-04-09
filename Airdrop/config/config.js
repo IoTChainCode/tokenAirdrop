@@ -42,7 +42,7 @@ module.exports = {
     internetType:'rinkeby',
     transaction:{
         url:'https://rinkeby.infura.io/0x585a40461ff12c6734e8549a7fb527120d4b8d0d',
-        gasPrice:20000000000,
+        gasPrice:2000000000,
         gasLimit:6000000
     },
     airdropModule: {
