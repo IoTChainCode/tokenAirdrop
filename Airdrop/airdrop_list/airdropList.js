@@ -23,7 +23,7 @@ var getRepeatAccount = function (dataArr) {
         var arr = data[i];
         var obj = arr[addressIndex];
 
-        if (airdropList.indexOf(obj) == -1){
+        if (airdropList.indexOf(obj) === -1){
 
           airdropList.push(obj);
         }
@@ -59,7 +59,7 @@ var parseTotalAirdropList = function (result){
 
     for (var i in data){
 
-        if(i == 0){
+        if(i === 0){
             continue;
         }
 
@@ -67,12 +67,12 @@ var parseTotalAirdropList = function (result){
             continue;
         }
 
-        if(i == destinationStartIndex + maxLength){
+        if(i === destinationStartIndex + maxLength){
             break;
         }
 
         //repeat token Address
-        if(repeatAirdropAddressIndexs.indexOf(i) != -1){
+        if(repeatAirdropAddressIndexs.indexOf(i) !== -1){
 
             var arr = data[i];
             repeatList.push(arr);
@@ -82,7 +82,7 @@ var parseTotalAirdropList = function (result){
         var arr = data[i];
         var obj = arr[addressIndex];
 
-        if(obj.length == 42){
+        if(obj.length === 42){
             airdropList.push(obj);
         }
         else {
@@ -118,7 +118,7 @@ var parseAwardsAirdropList = function (result){
 
     for (var i in data){
 
-        if(i == 0){
+        if(i === 0){
             continue;
         }
 
@@ -126,7 +126,7 @@ var parseAwardsAirdropList = function (result){
             continue;
         }
 
-        if(i == destinationStartIndex + maxLength){
+        if(i === destinationStartIndex + maxLength){
             break;
         }
 
@@ -154,7 +154,7 @@ function createRandomAward(){
 
         var arr = data[i];
         var obj = arr[addressIndex];
-        if (airdropList.indexOf(obj) == -1 && obj.length == 42) {
+        if (airdropList.indexOf(obj) === -1 && obj.length === 42) {
 
             airdropList.push(obj);
             nameList.push(arr[1]);
@@ -179,14 +179,14 @@ function createRandomAward(){
 
             var obj = airdropList[j];
 
-            if (accountsArr.indexOf(obj) == -1) {
+            if (accountsArr.indexOf(obj) === -1) {
 
                 var name = nameList[j];
                 content.push(name);
 
                 var amount = '4';
                 var awardName = 'Third prize';
-                if (i == 0) {
+                if (i === 0) {
                     amount = '499';
                     awardName = 'First prize';
                 }
@@ -226,7 +226,7 @@ function getErrorAddressList() {
 
         var arr = data[i];
         var obj = arr[addressIndex];
-        if (obj.length != 42 && writeFileContent.indexOf(arr) == -1) {
+        if (obj.length !== 42 && writeFileContent.indexOf(arr) === -1) {
             writeFileContent.push(arr);
         }
     }
@@ -257,7 +257,7 @@ var awardsAirdrop = function(result){
     fs.exists(awardsAirdropListPath,function (didExists) {
 
         console.log(didExists);
-        if (didExists == false){
+        if (didExists === false){
 
             createRandomAward();
             console.log('Generated reward list has been generated！');

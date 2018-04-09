@@ -66,10 +66,10 @@ tokenContract.events.Transfer({
 
 var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,airdropDestinationAddresses, airdropAmounts,userPrivateKey,hashIdCallBack,success, error) {
 
-    var fromAddress = privateKeyToAddress(userPrivateKey);
+    let fromAddress = privateKeyToAddress(userPrivateKey);
 
     //transaction config
-    var t = {
+    let t = {
         to: airContractAddress,
         value: '0x00',
         data: airdropContract.methods.airDrop(erc20TokenContractAddress,
@@ -106,13 +106,13 @@ var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,aird
                             hashIdCallBack(hash);
                         }).on('receipt',function(receipt){
                             //console.log('receipt:'+ JSON.stringify(receipt));
-                            var s = receipt.status;
+                            let s = receipt.status;
                             console.log("resultStatus:"+s);
-                            if(s == 1){
-                                success(JSON.stringify(receipt));
+                            if (s !== 1) {
+                                error(JSON.stringify(receipt));
                             }
                             else {
-                                error(JSON.stringify(receipt));
+                                success(JSON.stringify(receipt));
                             }
                         }).on('confirmation',function(confirmationNumber, receipt){
 
@@ -144,10 +144,10 @@ var totalAmounts = [];
 
 var transferWithAddressAndAmounts = function(addresses,amounts) {
 
-    for (var i in amounts){
+    for (let i in amounts){
 
-        var amount = amounts[i].toString();
-        var obj = web3.utils.toWei(amount, 'ether');
+        let amount = amounts[i].toString();
+        let obj = web3.utils.toWei(amount, 'ether');
         totalAmounts.push(obj);
     }
 
@@ -158,7 +158,7 @@ var transferWithAddressAndAmounts = function(addresses,amounts) {
 
 
 var listen = require('./listen');
-var onceAmountOfAirdropList = 200;
+const onceAmountOfAirdropList = 1;
 
 function startHandleAirdrop(index) {
 
@@ -179,7 +179,7 @@ function startHandleAirdrop(index) {
         currentAmounts.push(amount);
 
         //判断是否为最后一部分
-        if (i == totalAirdropAdress.length - 1){
+        if (i === totalAirdropAdress.length - 1){
             didSendLastAirdropList = true;
             break;
         }
@@ -190,7 +190,7 @@ function startHandleAirdrop(index) {
     transfer(tokenContractAddress,transferFromAddress,currentAddresses,currentAmounts,userPrivateKey,function (hashId) {
 
         var parameter = {};
-        if (networkType == 'main'){
+        if (networkType === 'main'){
             parameter = {'hashId':hashId};
         }else {
             parameter = {'hashId':hashId,'tokenAbi':tokenAbi,'tokenAddress':tokenContractAddress,'fromAddress':transferFromAddress}

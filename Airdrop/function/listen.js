@@ -29,7 +29,7 @@ var listenHashId = '';
 
 //------------------------------ Websocket function --------------------------
 
-if (networkType == 'main'){
+if (networkType === 'main'){
 
     ws = new WebSocket("wss://socket.etherscan.io/wshandler");
 
@@ -83,7 +83,7 @@ var listenAirdropStatus = function(parameter,result) {
     listenHashId = parameter.hashId;
     hashSuccessBlock = result;
 
-    if (networkType == 'rinkeby'){
+    if (networkType === 'rinkeby'){
 
         startRinkebyListen(parameter.tokenAbi,parameter.tokenAddress,parameter.fromAddress);
     }
@@ -93,8 +93,10 @@ function startRinkebyListen(tokenAbi,tokenAddress,fromAddress) {
 
     var tokenContract = new web3.eth.Contract(tokenAbi, tokenAddress);
 
-    console.log('start test network listen');
+    console.log('start rinkeby network listen');
 
+    //stop heartbeat
+    clearInterval(intervalNumber);
     //10秒轮询一次
     intervalNumber = setInterval(function () {
 
@@ -115,7 +117,7 @@ function startRinkebyListen(tokenAbi,tokenAddress,fromAddress) {
                 if (event != null){
 
 
-                    if (event.transactionHash == listenHashId){
+                    if (event.transactionHash === listenHashId){
 
                         console.log('监听到hashId相符合的交易');
 
@@ -137,7 +139,7 @@ function startRinkebyListen(tokenAbi,tokenAddress,fromAddress) {
 
 var stopListen = function () {
 
-    if (networkType == 'rinkeby') {
+    if (networkType === 'rinkeby') {
         clearInterval(intervalNumber);
     }else {
         ws.close();

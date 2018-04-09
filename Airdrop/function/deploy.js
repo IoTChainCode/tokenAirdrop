@@ -68,7 +68,7 @@ function deployContract(userPrivateKey,fromAddress,success, error) {
                             //console.log('receipt:'+ JSON.stringify(receipt));
                             var s = receipt.status;
                             console.log("resultStatus:"+s);
-                            if(s == 1){
+                            if(s === 1){
                                 success(receipt);
                             }
                             else {
