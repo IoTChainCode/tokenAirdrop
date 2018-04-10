@@ -178,7 +178,7 @@ function startHandleAirdrop(index) {
         currentAddresses.push(address);
         currentAmounts.push(amount);
 
-        //判断是否为最后一部分
+        //Judge whether the last batch has been sent out
         if (i === totalAirdropAdress.length - 1){
             didSendLastAirdropList = true;
             break;
@@ -198,15 +198,15 @@ function startHandleAirdrop(index) {
 
         listen.startListenAirdropResult(parameter,function (result) {
 
-            console.log('\n\n第'+(index+1)+'波已发送完毕\n');
+            console.log('\n\nThe '+(index+1)+' batch finished\n');
 
-            //判断是否已经发送完最后一批
+            //Judge whether the last batch has been sent out
             if(didSendLastAirdropList){
-                console.log("\n全部发送完毕!!!\n\n");
+                console.log("\nAll Token sent out!!!\n\n");
                 listen.stopListen();
             }
             else {
-                console.log('\n开始第' + (index+2) + '波空投地址\n\n');
+                console.log('\nStart' + (index+2) + ' wave airdrop\n\n');
                 startHandleAirdrop(index+1);
             }
         });

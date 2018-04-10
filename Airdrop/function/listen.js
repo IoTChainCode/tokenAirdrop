@@ -97,7 +97,7 @@ function startRinkebyListen(tokenAbi,tokenAddress,fromAddress) {
 
     //stop heartbeat
     clearInterval(intervalNumber);
-    //10秒轮询一次
+    //Query every 10 seconds
     intervalNumber = setInterval(function () {
 
         web3.eth.getBlockNumber().then(function (fromBlockNumber ) {
