@@ -3,9 +3,11 @@
  */
 
 //const totalAirdropListPath = './airdrop_list/xinhaoAwards.csv';
-var totalAirdropListPath = './airdrop_list/itc_airdrop_total.xlsx';
-var awardsAirdropListPath = './airdrop_list/awards.xlsx';
-var errorAirdropListPath = './airdrop_list/errorAddress.xlsx';
+
+var Config = require('./../config/config.js');
+var totalAirdropListPath = Config.filePath.totalAirdropListPath;
+var awardsAirdropListPath = Config.filePath.awardsAirdropListPath;
+var errorAirdropListPath = Config.filePath.errorAirdropListPath;
 
 //address 在excel中的序号
 var addressIndex = 3;
