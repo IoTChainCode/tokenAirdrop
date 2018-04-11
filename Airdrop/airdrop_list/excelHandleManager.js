@@ -26,7 +26,7 @@ function readFile(path){
 }
 
 
-function writeData(data,path) {
+function writeDataSync(data,path) {
 
     var buffer = xlsx.build([
         {
@@ -38,9 +38,31 @@ function writeData(data,path) {
     fs.writeFileSync(path,buffer,{'flag':'w'});
 }
 
+function appendData(data,path){
+    var fs = require('fs');
+
+    fs.exists(path,function (didExists) {
+
+        if (didExists === false){
+
+            console.log("need init recoder");
+
+            var titleArr = [["Address","Amount"]];
+            writeDataSync(titleArr,path)
+        }
+
+
+        var originalData = readFile(path);
+        var appendData = originalData.concat(data);
+
+        writeDataSync(appendData,path)
+    });
+
+}
 
 module.exports = {
 
     readExcelContent:readFile,
-    writeDataToExcel:writeData
+    writeDataToExcel:writeDataSync,
+    recoderAirdrop:appendData
 };
