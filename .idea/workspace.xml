@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c70f3b27-7a20-47ef-9c89-59792e2bfa33" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Airdrop/airdrop_list/airdropList.js" beforeDir="false" afterPath="$PROJECT_DIR$/Airdrop/airdrop_list/airdropList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Airdrop/airdrop_list/awards.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Airdrop/airdrop_list/excelHandleManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/Airdrop/airdrop_list/excelHandleManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Airdrop/airdrop_list/itc_airdrop_total.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Airdrop/airdrop_list/itc_airdrop_total.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Airdrop/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/Airdrop/config/config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Airdrop/function/airdrop.js" beforeDir="false" afterPath="$PROJECT_DIR$/Airdrop/function/airdrop.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -25,7 +19,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="airdropList.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="airdropList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Airdrop/airdrop_list/airdropList.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
@@ -61,11 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="airdrop.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="airdrop.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Airdrop/function/airdrop.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-47">
-              <caret line="209" lean-forward="true" selection-start-line="209" selection-end-line="209" />
+            <state relative-caret-position="212">
+              <caret line="161" column="49" selection-start-line="161" selection-start-column="49" selection-end-line="161" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -159,8 +153,8 @@
         <option value="$PROJECT_DIR$/Airdrop/function/listen.js" />
         <option value="$PROJECT_DIR$/Airdrop/airdrop_list/airdropList.js" />
         <option value="$PROJECT_DIR$/Airdrop/config/config.js" />
-        <option value="$PROJECT_DIR$/Airdrop/function/airdrop.js" />
         <option value="$PROJECT_DIR$/Airdrop/airdrop_list/excelHandleManager.js" />
+        <option value="$PROJECT_DIR$/Airdrop/function/airdrop.js" />
       </list>
     </option>
   </component>
@@ -358,12 +352,12 @@
       <workItem from="1523255460124" duration="32000" />
       <workItem from="1523327572808" duration="1204000" />
       <workItem from="1523353967167" duration="615000" />
-      <workItem from="1523425956158" duration="5273000" />
+      <workItem from="1523425956158" duration="5731000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32884000" />
+    <option name="totallyTimeSpent" value="33342000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="74" y="22" width="1366" height="878" extended-state="0" />
@@ -375,7 +369,7 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3290653" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3290653" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3290653" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3290653" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -664,31 +658,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Airdrop/errorAirdropList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Airdrop/normal_airdrop.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Airdrop/function/deploy.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="447">
           <caret line="70" column="35" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Airdrop/awards_airdrop.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="3" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
         </state>
       </provider>
     </entry>
@@ -706,13 +679,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Airdrop/function/airdrop.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-47">
-          <caret line="209" lean-forward="true" selection-start-line="209" selection-end-line="209" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Airdrop/airdrop_list/excelHandleManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
@@ -724,6 +690,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="258" column="32" lean-forward="true" selection-start-line="258" selection-start-column="32" selection-end-line="258" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Airdrop/awards_airdrop.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="3" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Airdrop/errorAirdropList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Airdrop/normal_airdrop.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Airdrop/function/airdrop.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="161" column="49" selection-start-line="161" selection-start-column="49" selection-end-line="161" selection-end-column="49" />
         </state>
       </provider>
     </entry>

@@ -158,7 +158,9 @@ var transferWithAddressAndAmounts = function(addresses,amounts) {
 
 
 var listen = require('./listen');
-const onceAmountOfAirdropList = 2;
+
+// ————————————  ✨✨The number of sent each time （200）✨✨✨  ————————————
+const onceAmountOfAirdropList = 200;
 
 function startHandleAirdrop(index) {
 
