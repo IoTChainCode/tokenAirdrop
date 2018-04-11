@@ -3,7 +3,7 @@
  */
 
 var Config = require('./../config/config.js');
-
+var FileManager = require('./../airdrop_list/excelHandleManager');
 Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
 
@@ -108,7 +108,7 @@ var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,aird
                             //console.log('receipt:'+ JSON.stringify(receipt));
                             let s = receipt.status;
                             console.log("resultStatus:"+s);
-                            if (s !== 1) {
+                            if (s != 1) {
                                 error(JSON.stringify(receipt));
                             }
                             else {
@@ -158,15 +158,16 @@ var transferWithAddressAndAmounts = function(addresses,amounts) {
 
 
 var listen = require('./listen');
-const onceAmountOfAirdropList = 1;
+const onceAmountOfAirdropList = 2;
 
 function startHandleAirdrop(index) {
 
     console.log('\n');
 
-
     var currentAddresses = [];
     var currentAmounts = [];
+
+    var airdropRecoder = [];
 
     var didSendLastAirdropList = false;
 
@@ -178,6 +179,12 @@ function startHandleAirdrop(index) {
         currentAddresses.push(address);
         currentAmounts.push(amount);
 
+        //将数据记录到数组中用于excel记录
+        var contentArr = [];
+        contentArr.push(address);
+        contentArr.push(amount);
+        airdropRecoder.push(contentArr);
+
         //Judge whether the last batch has been sent out
         if (i === totalAirdropAdress.length - 1){
             didSendLastAirdropList = true;
@@ -185,7 +192,8 @@ function startHandleAirdrop(index) {
         }
     }
 
-    console.log(currentAddresses +'\n'+currentAmounts);
+    //console.log(currentAddresses +'\n'+currentAmounts);
+    console.log(airdropRecoder);
 
     transfer(tokenContractAddress,transferFromAddress,currentAddresses,currentAmounts,userPrivateKey,function (hashId) {
 
@@ -199,6 +207,10 @@ function startHandleAirdrop(index) {
         listen.startListenAirdropResult(parameter,function (result) {
 
             console.log('\n\nThe '+(index+1)+' batch finished\n');
+
+            //recoder excel
+            var excelPath = Config.filePath.airdropRecoderListPath;
+            FileManager.recoderAirdrop(airdropRecoder,excelPath);
 
             //Judge whether the last batch has been sent out
             if(didSendLastAirdropList){
