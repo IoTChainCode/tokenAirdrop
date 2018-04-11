@@ -41,24 +41,30 @@ console.log('require librarys');
 module.exports = {
     internetType:'rinkeby',
     transaction:{
-        url:'https://rinkeby.infura.io/0x585a40461ff12c6734e8549a7fb527120d4b8d0d',
-        gasPrice:2000000000,
-        gasLimit:6000000
+        url         :'https://rinkeby.infura.io/0x585a40461ff12c6734e8549a7fb527120d4b8d0d',
+        gasPrice    : 5000000000,
+        gasLimit    : 6000000
     },
     airdropModule: {
-        userPrivateKey:'1311795de329cf9e8debd6441eae1437122e0bddf28911f8b6d770dc46a3b0e8',                                     //send transaction
-        ercAirDropAmount:'1',       //amount of airdrop
-        airdropContractAddress:'0x7a8cBfaA4bE827c834DFefae367c9535634f9B9D',
-        tokenContractAddress:'0xc0eE6Df91C455c64928F1F179C2B84eb61E58870',                               //erc20 token contract address
-        transferFromAddress:'0x585a40461FF12C6734E8549A7FB527120D4b8d0D'
+        userPrivateKey          :'1311795de329cf9e8debd6441eae1437122e0bddf28911f8b6d770dc46a3b0e8',                                     //send transaction
+        ercAirDropAmount        :'1',       //amount of airdrop
+        airdropContractAddress  :'0x7a8cBfaA4bE827c834DFefae367c9535634f9B9D',
+        tokenContractAddress    :'0xc0eE6Df91C455c64928F1F179C2B84eb61E58870',                               //erc20 token contract address
+        transferFromAddress     :'0x585a40461FF12C6734E8549A7FB527120D4b8d0D'
     },
     approveModule:{
-        userPrivateKey : '1311795de329cf9e8debd6441eae1437122e0bddf28911f8b6d770dc46a3b0e8',
-        amount : '5000',             //The amount of contract transferable accounts
-        airdropContractAddress : '0x7a8cBfaA4bE827c834DFefae367c9535634f9B9D',                             //airdrop contract address
-        tokenContractAddress : '0xc0eE6Df91C455c64928F1F179C2B84eb61E58870'
+        userPrivateKey          : '1311795de329cf9e8debd6441eae1437122e0bddf28911f8b6d770dc46a3b0e8',
+        amount                  : '5000',             //The amount of contract transferable accounts
+        airdropContractAddress  : '0x7a8cBfaA4bE827c834DFefae367c9535634f9B9D',                             //airdrop contract address
+        tokenContractAddress    : '0xc0eE6Df91C455c64928F1F179C2B84eb61E58870'
     },
     deployModule:{
         userPrivateKey : '1311795de329cf9e8debd6441eae1437122e0bddf28911f8b6d770dc46a3b0e8'
+    },
+    filePath:{
+        totalAirdropListPath    : './airdrop_list/itc_airdrop_total.xlsx',
+        awardsAirdropListPath   : './airdrop_list/awards.xlsx',
+        errorAirdropListPath    : './airdrop_list/errorAddress.xlsx',
+        airdropRecoderListPath  : './airdrop_list/airdropRecoderList.xlsx',
     }
 };
