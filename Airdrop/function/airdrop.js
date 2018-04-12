@@ -181,7 +181,7 @@ function startHandleAirdrop(index) {
         currentAddresses.push(address);
         currentAmounts.push(amount);
 
-        //将数据记录到数组中用于excel记录
+        //append airdropList recoder
         var contentArr = [];
         contentArr.push(address);
         contentArr.push(amount);

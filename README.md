@@ -39,13 +39,7 @@ The airdrop sequence is as follows:
 If you are not familiar with the smart contract, then follow the steps below!
 1. npm install web3 solc ethereumjs-tx ethjs-account ws silly-datetime --save
 2. Config your userPrivateKey in config.js ->deployModule->userPrivateKey
-3. Run deploy.js , then you will get the result on console ,like this:
-
-/*
-deploySuccess!!!
-blockHash：0x598ecb89d6d999d56fb0f5d4078d1b6b424aadabb09a7a0037b32911374bad68
-contractAddress：0xceCf9E39E17330fF5e802895aaa5Bd02614313Bd
-**/
+3. Run deploy.js , then you will get the result on console 
 4. copy the contractAddress on the console, and paste it in config.js ->approveModule->airdropApproveAddress
 5. Config your tokenContractAddress and userPrivateKey in config.js ->approveModule. this userPrivateKey is the private key of the account which you want to use for transfer token;
 6. Run approve.js, then your will get the result on console .
