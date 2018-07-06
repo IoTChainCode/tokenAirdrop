@@ -2,10 +2,10 @@ pragma solidity ^0.4.16;
 
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
-contract TokenERC20 {
+contract JDToken {
     // Public variables of the token
-    string public name = "IOT on Chain";
-    string public symbol = "ITC";
+    string public name = "JiDong Coin";
+    string public symbol = "JDC";
     uint256 public decimals = 18;
     // 18 decimals is the strongly suggested default, avoid changing it
     uint256 public totalSupply = 100*1000*1000*10**decimals;
@@ -25,7 +25,7 @@ contract TokenERC20 {
      *
      * Initializes contract with initial supply tokens to the creator of the contract
      */
-    function TokenERC20(
+    function JDToken(
     ) public {
         balanceOf[msg.sender] = totalSupply;                // Give the creator all initial tokens
     }

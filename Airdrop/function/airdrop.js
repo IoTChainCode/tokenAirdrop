@@ -2,147 +2,83 @@
  * Created by zhaoyiyu on 2018/1/17.
  */
 
-var Config = require('./../config/config.js');
-var FileManager = require('./../airdrop_list/excelHandleManager');
+const Config = require('./../config/config.js');
+
 Web3 = require('web3');
-var web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
+const web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
 
 //init
-var Tx = require('ethereumjs-tx');
-var ethjsaccount = require('ethjs-account');
-var fs = require('fs');
-var solc = require('solc');
+const Tx = require('ethereumjs-tx');
+const ethjsaccount = require('ethjs-account');
+const fs = require('fs');
+const solc = require('solc');
 
 // compile the code
-var input = fs.readFileSync('./contract/airdrop.sol');
-var output = solc.compile(input.toString());
-var abi = JSON.parse(output.contracts[':TokenAirDrop'].interface);
+const input = fs.readFileSync('./contract/airdrop.sol');
+const output = solc.compile(input.toString());
+const abi = JSON.parse(output.contracts[':TokenAirDrop'].interface);
 
 
-var tokenInput = fs.readFileSync('./contract/erc20Token.sol');
-var tokenOutput = solc.compile(tokenInput.toString());
-var tokenAbi = JSON.parse(tokenOutput.contracts[':TokenERC20'].interface);
+const tokenInput = fs.readFileSync('./contract/erc20Token.sol');
+const tokenOutput = solc.compile(tokenInput.toString());
+const tokenAbi = JSON.parse(tokenOutput.contracts[':TokenERC20'].interface);
+
+
+function privateKeyToAddress(privateKey) {
+
+    return ethjsaccount.privateToAccount(privateKey).address;
+}
+
 //------------------------------ init property ----------------------------
 
 //airdrop contract address
-var airContractAddress = Config.airdropModule.airdropContractAddress;
+const airContractAddress = Config.airdropModule.airdropContractAddress;
 //user privateKey
-var userPrivateKey = Config.airdropModule.userPrivateKey;
+const userPrivateKey = Config.userModule.userPrivateKey;
 //erc20 token contract address
-var tokenContractAddress = Config.airdropModule.tokenContractAddress;
+const tokenContractAddress = Config.airdropModule.tokenContractAddress;
 //transfer from address
-var transferFromAddress = Config.airdropModule.transferFromAddress;
+const fromAddress = privateKeyToAddress(userPrivateKey);
 //network type
-var networkType = Config.internetType;
-
-//-------------------------------- contract --------------------------------
-
-var airdropContract = new web3.eth.Contract(abi, airContractAddress);
-
-var tokenContract = new web3.eth.Contract(tokenAbi, tokenContractAddress);
-
-
-// tokenContract.methods.name().call().then(console.log);
-//
-// tokenContract.methods.balanceOf('0x585a40461FF12C6734E8549A7FB527120D4b8d0D').call(null,function(error,result){
-//     console.log("balance ->"+result);
-// });
-
-//-------------------------------- event --------------------------------
-
-tokenContract.events.Transfer({
-    fromBlock: 0,
-    toBlock:'latest'
-}, function(error, event){ console.log("result:\n"+JSON.stringify(event)); })
-    .on('data', function(event){
-        console.log(event); // same results as the optional callback above
-    })
-    .on('changed', function(event){
-        // remove event from local database
-    })
-    .on('error', console.error);
+const networkType = Config.internetType;
 
 //-------------------------------- function --------------------------------
 
-var transfer = function(erc20TokenContractAddress , airDropOriginalAddress ,airdropDestinationAddresses, airdropAmounts,userPrivateKey,hashIdCallBack,success, error) {
+const execute = require('./base/execute');
 
-    let fromAddress = privateKeyToAddress(userPrivateKey);
+function transfer(erc20TokenContractAddress , airDropOriginalAddress ,airdropDestinationAddresses, airdropAmounts,hashIdCallBack,successCall, errorCall) {
 
-    //transaction config
-    let t = {
-        to: airContractAddress,
-        value: '0x00',
-        data: airdropContract.methods.airDrop(erc20TokenContractAddress,
-            airDropOriginalAddress,
-            airdropDestinationAddresses,
-            airdropAmounts).encodeABI()
-    };
-    //get current gasPrice, you can use default gasPrice or custom gasPrice!
-    web3.eth.getGasPrice().then(function(p) {
-        //t.gasPrice = web3.utils.toHex(p);
-        t.gasPrice = web3.utils.toHex(Config.transaction.gasPrice);
-        //get nonce value
-        web3.eth.getTransactionCount(fromAddress,
-            function(err, r) {
-                t.nonce = web3.utils.toHex(r);
-                t.from = fromAddress;
-                //get gasLimit value , you can use estimateGas or custom gasLimit!
-                web3.eth.estimateGas(t,
-                    function(err, gas) {
-                        t.gasLimit = web3.utils.toHex(Config.transaction.gasLimit);
-                        var tx = new Tx(t);
-                        var privateKey = new Buffer(userPrivateKey, 'hex');
+    let airdropContract = new web3.eth.Contract(abi, airContractAddress);
 
-                        //sign
-                        tx.sign(privateKey);
-                        var serializedTx = '0x' + tx.serialize().toString('hex');
-                        // console.log("serializedTx----"+serializedTx);
+    let dataAbi = airdropContract.methods.airDrop(erc20TokenContractAddress,
+        airDropOriginalAddress,
+        airdropDestinationAddresses,
+        airdropAmounts).encodeABI();
 
-                        console.log("send signed transaction");
-
-                        //sendSignedTransaction
-                        web3.eth.sendSignedTransaction(serializedTx).on('transactionHash',function(hash){
-                            console.log('hashId:'+ hash+'\n');
-                            hashIdCallBack(hash);
-                        }).on('receipt',function(receipt){
-                            //console.log('receipt:'+ JSON.stringify(receipt));
-                            let s = receipt.status;
-                            console.log("resultStatus:"+s);
-                            if (s != 1) {
-                                error(JSON.stringify(receipt));
-                            }
-                            else {
-                                success(JSON.stringify(receipt));
-                            }
-                        }).on('confirmation',function(confirmationNumber, receipt){
-
-                            /*web3.eth.getBlockNumber(function (number) {
-                             console.log("number--"+number+"\n");
-                             });*/
-                            //  console.log('entrance'+ JSON.stringify(confirmationNumber)+'--------------'+ JSON.stringify(receipt));
-                        }).on('error',function(err){
-
-                            //error(err);
-                            console.log('send error'+err);
-                        });
-                    });
-            });
-        return this
-    })
-};
+    execute.executeFunction(airContractAddress,dataAbi,hashIdCallBack,successCall,errorCall);
+}
 
 
-var privateKeyToAddress = function(privateKey) {
+let totalAirdropAdress = [];
+let totalAmounts = [];
+let airdropResultCall;
 
-    var address = ethjsaccount.privateToAccount(privateKey).address;
-    return address;
-};
+let listen = require('./base/listen');
 
+//总共需要空投的数量
+let totalAmountOfAirdropList = 0;
+//每次空投数量
+const onceAmountOfAirdropList = 100;
 
-var totalAirdropAdress = [];
-var totalAmounts = [];
+//标志位
+let didSendLastAirdropList;
+//是否需要将剩下的全部发出
+let needSendLastList = false;
 
-var transferWithAddressAndAmounts = function(addresses,amounts) {
+//上一波交易是否完成
+let perTranscationDidComplete = true;
+
+function transferWithAddressAndAmounts(addresses,amounts,resultCall) {
 
     for (let i in amounts){
 
@@ -153,87 +89,147 @@ var transferWithAddressAndAmounts = function(addresses,amounts) {
 
     totalAirdropAdress = addresses;
 
-    startHandleAirdrop(0);
-};
+    airdropResultCall = resultCall;
+
+    //初始化数据
+    totalAmountOfAirdropList = addresses.length;
+    needSendLastList = false;
 
 
-var listen = require('./listen');
+    //每5秒查询一次上一波是否发生成功
+    let interval = setInterval(function(){
 
-// ————————————  ✨✨The number of sent each time （200）✨✨✨  ————————————
-const onceAmountOfAirdropList = 200;
+        if (perTranscationDidComplete){
+
+            clearInterval(interval);
+            startHandleAirdrop(0);
+        }
+    },5*1000);
+}
+
 
 function startHandleAirdrop(index) {
 
     console.log('\n');
 
-    var currentAddresses = [];
-    var currentAmounts = [];
+    let currentAddresses = [];
+    let currentAmounts = [];
 
-    var airdropRecoder = [];
+    didSendLastAirdropList = false;
+    perTranscationDidComplete = false;
 
-    var didSendLastAirdropList = false;
+    let i = index * onceAmountOfAirdropList;
 
-    for(i = index * onceAmountOfAirdropList ; i < (index +1) * onceAmountOfAirdropList ; i ++ ){
+    let topIndex = (index +1) * onceAmountOfAirdropList;
 
-        var address = totalAirdropAdress[i];
-        var amount = totalAmounts[i];
+    if (needSendLastList){
+        topIndex = totalAmountOfAirdropList;
+    }
+
+    for(i; i < topIndex ; i ++ ){
+
+        let address = totalAirdropAdress[i];
+        let amount = totalAmounts[i];
 
         currentAddresses.push(address);
         currentAmounts.push(amount);
 
-        //append airdropList recoder
-        var contentArr = [];
-        contentArr.push(address);
-        contentArr.push(amount);
-        airdropRecoder.push(contentArr);
-
-        //Judge whether the last batch has been sent out
-        if (i === totalAirdropAdress.length - 1){
+        //判断是否为最后一部分
+        if (i == totalAirdropAdress.length - 1){
             didSendLastAirdropList = true;
             break;
         }
     }
 
-    //console.log(currentAddresses +'\n'+currentAmounts);
-    console.log(airdropRecoder);
+    console.log(currentAddresses +'\n'+currentAmounts);
 
-    transfer(tokenContractAddress,transferFromAddress,currentAddresses,currentAmounts,userPrivateKey,function (hashId) {
+    transfer(tokenContractAddress,fromAddress,currentAddresses,currentAmounts,function (hashId) {
 
-        var parameter = {};
-        if (networkType === 'main'){
-            parameter = {'hashId':hashId};
-        }else {
-            parameter = {'hashId':hashId,'tokenAbi':tokenAbi,'tokenAddress':tokenContractAddress,'fromAddress':transferFromAddress}
-        }
+        let parameter = {'hashId':hashId,'tokenAbi':tokenAbi,'tokenAddress':tokenContractAddress,'fromAddress':fromAddress};
 
         listen.startListenAirdropResult(parameter,function (result) {
 
-            console.log('\n\nThe '+(index+1)+' batch finished\n');
+            console.log('\n\n第'+(index+1)+'波已发送完毕\n');
 
-            //recoder excel
-            var excelPath = Config.filePath.airdropRecoderListPath;
-            FileManager.recoderAirdrop(airdropRecoder,excelPath);
+            perTranscationDidComplete = true;
 
-            //Judge whether the last batch has been sent out
+            //判断是否已经发送完最后一批
             if(didSendLastAirdropList){
-                console.log("\nAll Token sent out!!!\n\n");
+                console.log("\n全部发送完毕!!!\n\n");
+
+                //回调空投结果
+                airdropResultCall(true);
+
                 listen.stopListen();
             }
             else {
-                console.log('\nStart' + (index+2) + ' wave airdrop\n\n');
+                console.log('\n开始第' + (index+2) + '波空投地址\n\n');
                 startHandleAirdrop(index+1);
             }
         });
     },function (success) {
 
+        perTranscationDidComplete = true;
+
         console.log("Transaction Success:\n"+success);
     },function (error) {
 
         console.log("Failure to send a signature transaction:\n"+error);
+
+
+        let judgeStr = error.toString();
+
+        let notMind = 'not mined';
+
+        if (judgeStr.indexOf(notMind) == -1){
+
+            perTranscationDidComplete = true;
+        }
+
+        let underpriced = 'underpriced';
+        if (judgeStr.indexOf(underpriced) != -1) {
+                
+            console.log('重新发送此次交易');
+
+            startHandleAirdrop(index);
+        }else{
+
+            airdropResultCall(false);
+        }
+
+        //回调空投结果
         listen.stopListen();
     });
 }
 
+const airdropListManager = require('../filemanger/airdropListManager');
+
+function startAirdrop(filePath,addressIndex,amountIndex,addressNeedJudgeRepeat,resultCall){
+
+    // get list
+    airdropListManager.getAirdropList(filePath,addressIndex,amountIndex,addressNeedJudgeRepeat,function (addresses,amounts) {
+
+        if (addresses.length === 0 || amounts.length === 0){
+
+            console.log('空投列表数据读取错误');
+
+            resultCall(false);
+
+            return;
+        }
+
+        console.log('此次空投：'+addresses+'\n共计：'+addresses.length);
+
+        transferWithAddressAndAmounts(addresses,amounts,resultCall);
+    });
+}
+
+function sendLastPartAirdrop(){
+
+    needSendLastList = true;
+}
+
 module.exports = {
-    transferTool:transferWithAddressAndAmounts
+    startAirdrop,
+    sendLastPartAirdrop
 };

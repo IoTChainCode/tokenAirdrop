@@ -1,37 +1,24 @@
 /**
  * Created by zhaoyiyu on 2018/1/30.
  */
-var fs = require('fs');
-var solc = require('solc');
 
-var Tx = require('ethereumjs-tx');
-var ethjsaccount = require('ethjs-account');
+const Tx = require('ethereumjs-tx');
+const ethjsaccount = require('ethjs-account');
 
-var Config = require('./../config/config');
+const Config = require('../../config/config');
 Web3 = require('web3');
-var web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
-
+const web3 = new Web3(new Web3.providers.HttpProvider(Config.transaction.url));
 //------------------------------ init property ----------------------------
 
-//user privateKey
-var userPrivateKey = Config.deployModule.userPrivateKey;
-//contract address
-var contractPath = './../contract/airdrop.sol';
+const userPrivateKey = Config.userModule.userPrivateKey;
 
-//-------------------------------- contract --------------------------------
-// compile the code
-var input = fs.readFileSync(contractPath);
-var output = solc.compile(input.toString());
-var bytecode = output.contracts[':TokenAirDrop'].bytecode;
+//------------------------------ api ----------------------------
+function blockTransaction(t,hashIdCall,success,error){
 
-// deploy function
-function deployContract(userPrivateKey,fromAddress,success, error) {
+    let  fromAddress = privateKeyToAddress(userPrivateKey);
 
-//  transaction config
-    var t = {
-        value: '0x00',
-        data: ('0x'+bytecode)
-    };
+    console.log('fromAddress',fromAddress);
+
     //get current gasPrice, you can use default gasPrice or custom gasPrice!
     web3.eth.getGasPrice().then(function(p) {
         //t.gasPrice = web3.utils.toHex(p);
@@ -50,30 +37,36 @@ function deployContract(userPrivateKey,fromAddress,success, error) {
                         t.gasLimit = web3.utils.toHex(Config.transaction.gasLimit);
 
                         //初始化transaction
-                        var tx = new Tx(t);
-                        var privateKey = new Buffer(userPrivateKey, 'hex');
+                        let tx = new Tx(t);
+                        let privateKey = new Buffer(userPrivateKey, 'hex');
 
                         //sign
                         tx.sign(privateKey);
-                        var serializedTx = '0x' + tx.serialize().toString('hex');
+                        let serializedTx = '0x' + tx.serialize().toString('hex');
                         //console.log("serializedTx----"+serializedTx);
 
                         console.log("send signed transaction");
 
                         //sendSignedTransaction
                         web3.eth.sendSignedTransaction(serializedTx)
-                          .on('transactionHash',function(hash){
-                            console.log('hashId:'+ hash+'\n');
-                        }).on('receipt',function(receipt){
+                            .on('transactionHash',function(hash){
+
+                                console.log('hashId:'+ hash+'\n');
+                                hashIdCall(hash);
+
+                            }).on('receipt',function(receipt){
                             //console.log('receipt:'+ JSON.stringify(receipt));
-                            var s = receipt.status;
+
+                            let s = receipt.status;
                             console.log("resultStatus:"+s);
-                            if(s === 1){
+
+                            if(s == 1){
                                 success(receipt);
                             }
                             else {
                                 error(receipt);
                             }
+
                         }).on('confirmation',function(confirmationNumber, receipt){
 
                             /*web3.eth.getBlockNumber(function (number) {
@@ -81,6 +74,7 @@ function deployContract(userPrivateKey,fromAddress,success, error) {
                              });*/
                             //  console.log('entrance'+ JSON.stringify(confirmationNumber)+'--------------'+ JSON.stringify(receipt));
                         }).on('error',function(error){
+
                             console.log('Failure to send a signature transaction：'+error);
                         });
                     });
@@ -89,21 +83,43 @@ function deployContract(userPrivateKey,fromAddress,success, error) {
 };
 
 
-var privateKeyToAddress = function(privateKey,result) {
-    var address = ethjsaccount.privateToAccount(privateKey).address;
-    result(address);
-};
+function privateKeyToAddress(privateKey) {
 
-privateKeyToAddress(userPrivateKey,function (address) {
+    let address = ethjsaccount.privateToAccount(privateKey).address;
+    return address;
+}
 
-    console.log('from：'+address);
+function startBlockTransaction(t,getHashIdCall,successCall,errorCall) {
 
-    deployContract(userPrivateKey,address,function (success) {
+    console.log('startBlockTransaction');
 
-        console.log('\ndeploySuccess!!!  \nblockHash：'+ success.transactionHash +' \ncontractAddress：'+success.contractAddress);
-        //console.log("success:"+ JSON.stringify(success));
+    blockTransaction(t,function (hashId) {
+
+        if (getHashIdCall != null){
+
+            getHashIdCall(hashId);
+        }
+
+    },function (success) {
+
+        console.log("Transaction Success:\n"+JSON.stringify(success));
+        if (successCall != null){
+
+            successCall(success);
+        }
+
     },function (error) {
 
-        console.log("error:"+JSON.stringify(error));
+        console.log("Failure to send a signature transaction:\n"+error);
+
+        if (errorCall != null){
+
+            errorCall(error);
+        }
     });
-});
+}
+
+module.exports = {
+
+    startTransaction:startBlockTransaction
+};
