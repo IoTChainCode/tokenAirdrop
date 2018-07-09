@@ -35,9 +35,9 @@ function startTransferToken() {
     let amount = '0.01';
     let obj = web3.utils.toWei(amount, 'ether');
 
-    let tokenAddress = '0x5e6b6d9abad9093fdc861ea1600eba1b355cd940';
+    let tokenAddress = 'your token address';
 
-    transferToken(tokenAddress,'0x7c06fB7D5da5Bbec6cb410567955120B37a22874',obj,function (hashId) {
+    transferToken(tokenAddress,'your destination address',obj,function (hashId) {
         console.log('start transfer Token!,hashId->',hashId);
     },function (success) {
 

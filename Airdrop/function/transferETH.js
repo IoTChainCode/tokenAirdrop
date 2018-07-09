@@ -22,7 +22,7 @@ function startTransferETH() {
     let ethAmount = '0.1';
     ethAmount = web3.utils.toWei(ethAmount, 'ether');
 
-    transferEth('0x79f6a7810a83e5843e2e7d191edcfcc1cd62d9b5',ethAmount,function (hashId) {
+    transferEth('your address',ethAmount,function (hashId) {
         console.log('start TransferETH transcation!');
     },function (success) {
         console.log('TransferETH success!');

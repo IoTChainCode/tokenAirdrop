@@ -23,7 +23,7 @@ const userConfig_main = {
 const userConfig_rinkeby = {
     userPrivateKey:'1311795de329cf9e8debd6441eae1437122e0bddf28911f8b6d770dc46a3b0e8',
     userAddress:'0xfdbc38257a9507d9329c2e203bce7a9b0b63f871',
-    contractAddress:'0x7a8cBfaA4bE827c834DFefae367c9535634f9B9D'
+    airdropContractAddress:'0x7a8cBfaA4bE827c834DFefae367c9535634f9B9D'
 };
 
 let userConfig = userConfig_rinkeby;
