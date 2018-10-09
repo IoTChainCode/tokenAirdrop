@@ -5,28 +5,28 @@ This project can be used for all ERC20 based tokens for airdrop distribution！
 3. The implementation fee is reduced to 0.000045--0.00007 eth/transcation.
 
 --------------------------------------------------------------------
-Airdrop
-    ——config
-        config.js
-    ——contract
-        *.sol
-    ——filemanger
-        airdropListManager.js
-        awards.js
-        errorAirdropList.js
-        excelHandleManager.js
-    ——function
-        ——base
-            deploy.js
-            execute.js
-            listen.js
-            transaction.js
-        airdrop.js
-        approve.js
-        deployAirdropContract.js
-        transferETH.js
-        transferToken.js
-    start.js
+Airdrop  
+    ——config  
+        config.js  
+    ——contract  
+        *.sol  
+    ——filemanger  
+        airdropListManager.js  
+        awards.js  
+        errorAirdropList.js  
+        excelHandleManager.js  
+    ——function  
+        ——base  
+            deploy.js  
+            execute.js  
+            listen.js  
+            transaction.js  
+        airdrop.js  
+        approve.js  
+        deployAirdropContract.js  
+        transferETH.js  
+        transferToken.js  
+    start.js  
     
 --------------------------------------------------------------------
 # Dependency library
